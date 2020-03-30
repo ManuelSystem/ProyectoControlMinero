@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22/02/2020, 11:51:50 AM
+    Author     : Manuel
+*/
+body{
+background: #fffc00;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ffffff, #fffc00);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ffffff, #fffc00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+
+
+.formulario input{
+    height: 45px;
+}
+.formulario span.glyphicon{
+    width: 50px;
+    color: #000;
+    display: block;
+    float: left;
+    height: 50px;
+    font-size:24px;
+    line-height: 51px;
+    text-align: center;
+    margin-top: -1px;
+}
+.formulario{
+    border-right:2px solid #fff;
+    margin-top: 150px;
+    padding: 0px 22px;
+    text-align: center;
+}
+.image img{
+    margin-top: 80px;
+}
+.formulario form{
+    display: block;
+    margin: auto;
+    width: 400px;
+}
+.formulario h2{
+    font-size: 40px;
+    padding: 20px 0px;
+}
+
+

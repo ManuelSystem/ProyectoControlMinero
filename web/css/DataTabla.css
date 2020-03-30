@@ -1,0 +1,31 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21/10/2019, 03:28:55 PM
+    Author     : Braro
+*/
+
+
+
+#example_filter input{
+    width: 300px;
+}
+
+#example .paginate_button{
+    border: 2px solid;
+}
+
+.paginate_button{
+    border: 2px solid;
+    padding: 10px;
+    cursor: pointer;
+    
+}
+
+.paginate_button a{
+    text-decoration: none;
+}
+
