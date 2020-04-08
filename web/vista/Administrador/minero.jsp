@@ -129,21 +129,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%
-                                    for (int i = 0; i < 12; i++) {
-
-
-                                %>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
-
-                                <% }%>
+                               
                             </tbody>
                         </table>
                     </div>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : editarDatosConductor
-    Created on : 23/03/2020, 12:04:31 PM
+    Document   : editarDatosMaterial
+    Created on : 7/04/2020, 05:37:26 PM
     Author     : Manuel
 --%>
 
@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Editar Conductor - Control Minero</title>
+        <title>Editar Material Minero - Control Minero</title>
 
         <link href="../../lib/fontawesome/css/all.css" rel="stylesheet" type="text/css"/>
         <link href="../../lib/fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css"/>
@@ -23,23 +23,23 @@
         <link href="../../css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-       <%
+        <%
             Facade faca = new Facade();
-            String cedula = (String)session.getAttribute("parametroCodigo");
-            String idConductor = request.getParameter("idConductor");
-            
+            String cedula = (String) session.getAttribute("parametroCodigo");
+            String idMaterial = request.getParameter("idMaterial");
+
             ArrayList<String> datoSesion = faca.obtenerDatosPersona(cedula);
             String dato = datoSesion.toString().replace("[", "").replace("]", "");
             String[] sesion = dato.split("/");
-            
-            ArrayList<String> datosCondu = faca.obtenerDatosConductor(idConductor);
-            String dtCo= datosCondu.toString().replace("[", "").replace("]", "");
-            String[] conductor = dtCo.split("/");
+
+            ArrayList<String> datosMate = faca.obtenerDatosMaterial(idMaterial);
+            String dtMat = datosMate.toString().replace("[", "").replace("]", "");
+            String[] material = dtMat.split("/");
+
         %>
-        
-        <%
-            if (request.getParameter("mens") != null) { %>
-                <input type="text" name="obtInfo" id="obtInfo" value="<%out.println(request.getParameter("mens")); %>" style="visibility: hidden"> <%
+
+        <%            if (request.getParameter("mens") != null) { %>
+        <input type="text" name="obtInfo" id="obtInfo" value="<%out.println(request.getParameter("mens")); %>" style="visibility: hidden"> <%
             }
         %>
 
@@ -70,7 +70,6 @@
                             </ul>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </nav>
@@ -95,12 +94,12 @@
 
                     <ul class="nav nav-sidebar">
                         <li><a href="administrador.jsp"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a></li>
-                        <li class="active"><a href="conductor.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
+                        <li><a href="conductor.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
                         <li><a href="vehiculo.jsp"> <i class="fas fa-truck-moving"></i> Vehículos</a></li>
                         <li><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
                         <li><a href="fallaMecanica.jsp"> <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Fallas Mecánicas</a></li>
                         <li><a href="patio.jsp"> <i class="fas fa-route"></i> Patios de Descargue</a></li>
-                        <li><a href="materialMinero.jsp"> <i class="fas fa-mountain"></i> Material Minero</a></li>
+                        <li class="active"><a href="materialMinero.jsp"> <i class="fas fa-mountain"></i> Material Minero</a></li>
                         <li><a href="cargamento.jsp"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
                         <li><a href="minero.jsp"> <i class="fas fa-user-cog"></i> Minero</a></li>
                         <li><a href="produccionMinero.jsp"> <i class="fas fa-chart-line"></i> Producción de Mineros</a></li>
@@ -112,71 +111,36 @@
 
                     <ol class="breadcrumb">
                         <li><a href="administrador.jsp">Inicio</a></li>
-                        <li >Listado Conductores</li>
-                        <li class="active">Editar Conductor</li>
+                        <li >Listado de Material Minero</li>
+                        <li class="active">Editar Material Minero</li>
                     </ol>
 
-                    <h1 class="page-header">Actualización del Conductor</h1>
-
-                    <h4 class="">Datos del Conductor Seleccionado:</h4>
+                    <h1 class="page-header">Actualización de Matrial Minero</h1>
+                    
+                    <h4 class="">Datos del Material Minero: </h4>
 
                     <div class="row contenedorForms">
-                        <form action="../../ServletRegistroConductor" method="post">
 
+                        <form action="../../ServletRegistroMaterialMinero" method="post">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="">Nombres</label>
-                                    <input type="text" class="form-control" name="NombresCon" placeholder="Tu Nombre" value="<%=conductor[3] %>" required="">
+                                    <label for="">Tipo de Material Minero</label>
+                                    <input type="text" class="form-control" name="tipoMaterial"  value="<%=material[1]%>" required="" readonly="">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="">Apellidos</label>
-                                    <input type="text" class="form-control" name="ApellidosCon" placeholder="Tu Apellido" value="<%=conductor[4] %>" required="">
+                                    <label for="">Nombre del Material Minero</label>
+                                    <input type="text" class="form-control" name="nombreMaterial"  value="<%=material[2]%>" required="" >
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="">Descripción del Material Minero</label>
+                                    <textarea type="text" class="form-control" rows="4" name="descripcionMaterial"  placeholder="Escriba una breve descripción del Material Minero..." required="" style="resize: none;"><%=material[3]%></textarea>
                                 </div>
                             </div>
 
-                            <div class="form-row">
-                                 <div class="form-group col-md-6">
-                                            <label for="">Tipo Documento</label>
-                                            <input type="text" class="form-control" name="TipoDocumentoCon" value="<%=conductor[1] %>" required="" readonly="">
-                                        </div>
-                                <div class="form-group col-md-6">
-                                    <label for="">N° Documento</label>
-                                    <input type="text" class="form-control" name="numeroCedulaCon" placeholder="Número de documento" value="<%=conductor[2] %>" required="" readonly="">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="">Telefono</label>
-                                    <input type="text" class="form-control" name="telefonoCon" placeholder="Tu Telefono" value="<%=conductor[5] %>" required="">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Correo Electronico</label>
-                                    <input type="email" class="form-control" name="emailCon" placeholder="Tu Cooreo Electronico" value="<%=conductor[6] %>" required="">
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="">Dirección Casa</label>
-                                    <input type="text" class="form-control" name="direccionCon" placeholder="Tu Direccion" value="<%=conductor[7] %>" required="">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="">Sexo</label>
-                                    <input type="text" class="form-control"  name="TipoSexoCon"  value="<%=conductor[8] %>" required="">
-                                        
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Edad</label>
-                                    <input type="number" class="form-control" placeholder="Edad" name="edadCon" min="1" max="120" value="<%=conductor[9] %>"required="">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Estado Licencia</label>
-                                    <input type="text" class="form-control" placeholder="En linea o Vencido" name="licenciaEstado" value="" required="">
-                                </div>
-                            </div>
-                            <input type="text" class="form-control" name="idConductorInput" value="<%=idConductor %>" style="visibility:hidden ">
-                            <button type="submit" class="btn btn-primary" name="accion" value="actualizarConductor">Actualizar Conductor</button>
+                            <input type="text" class="form-control" name="idMaterialInput" value="<%=idMaterial%>" style="visibility:hidden ">
+                            <button type="submit" class="btn btn-primary" name="accion" value="actualizarMaterial">Actualizar Material</button>
                         </form>
 
                     </div>
@@ -185,17 +149,18 @@
             </div>
         </div>
 
-    <!-- modal cerrar sesion -->
-    <%@ include file="../HTML/modal_CerrarSesion.jsp" %> 
-    <!-- modal error registro-->
-    <%@ include file="../HTML/modal_ErrorRegistro.jsp" %> 
-    <!-- modal Registro exitoso -->
-    <%@ include file="../HTML/modal_RegistroExitoso.jsp" %> 
+        <!-- modal Registro actualziado exitoso -->
+        <%@ include file="../HTML/modal_ActualizacionExitosa.jsp" %> 
+        <!-- modal cerrar sesion -->
+        <%@ include file="../HTML/modal_CerrarSesion.jsp" %> 
+        <!-- modal error registro-->
+        <%@ include file="../HTML/modal_ErrorRegistro.jsp" %> 
 
 
-    <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
-    <script src="../../lib/jquery/jquery-3.3.1.js" type="text/javascript"></script>
-    <script src="../../lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../../js/script_Admin.js" type="text/javascript"></script>
-</body>
+
+        <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
+        <script src="../../lib/jquery/jquery-3.3.1.js" type="text/javascript"></script>
+        <script src="../../lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../../js/script_Admin.js" type="text/javascript"></script>
+    </body>
 </html>

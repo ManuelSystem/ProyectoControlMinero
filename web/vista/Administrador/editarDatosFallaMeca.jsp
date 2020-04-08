@@ -118,7 +118,7 @@
                         <li class="active">Editar Falla Mecánica</li>
                     </ol>
 
-                    <h1 class="page-header">Actualizazión de Falla Mecánica</h1>
+                    <h1 class="page-header">Actualización de Falla Mecánica</h1>
                     <div class="alert alert-warning alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <strong>Advertencia!</strong> Recuerda que el vehiculo seleccionado a actualizar es <strong><span><%=falla[1]%></span></strong> y el conductor es <strong><span><%=falla[2]%></span></strong>.
@@ -132,31 +132,11 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="">N° de Chasis del vehiculo</label>
-                                    <select class="form-control"  name="vehiculoFalla" required="">
-                                        <option value="">seleccione n° chasis del vehículo</option>
-                                        <%
-                                            ArrayList<String> lista = faca.obtenerDatosVehiculo();
-                                            for (int i = 0; i < lista.size(); i++) {
-                                                String dato1 = lista.get(i).toString();
-                                                String[] dato2 = dato1.split("/");
-                                        %>
-                                        <option><%=dato2[4]%></option>
-                                        <% }%>
-                                    </select>    
+                                    <input type="text" class="form-control" name="vehiculoFalla"  value="<%=falla[1]%>" required="" readonly="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="">Conductor del Vehículo</label>
-                                    <select class="form-control"  name="conductorFalla" required="">
-                                        <option value="">seleccione el conductor</option>
-                                        <%
-                                            ArrayList<String> lista2 = faca.obtenerDatosConductor();
-                                            for (int i = 0; i < lista2.size(); i++) {
-                                                String dato1 = lista2.get(i).toString();
-                                                String[] dato2 = dato1.split("/");
-                                        %>
-                                        <option><%=dato2[3]%></option>
-                                        <% }%>
-                                    </select> 
+                                    <input type="text" class="form-control" name="conductorFalla"  value="<%=falla[2]%>" required="" readonly="">
                                 </div>
                             </div>
 
@@ -170,7 +150,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="">Descripción de la Falla Mecánica</label>
-                                    <input type="text" class="form-control" rows="5" name="descripcionFalla"  placeholder="Escriba una breve descripción de la falla mecánica..." value="<%=falla[4]%>" required="" style="resize: none;">
+                                    <textarea type="text" class="form-control" rows="4" name="descripcionFalla"  placeholder="Escriba una breve descripción de la falla mecánica..." required="" style="resize: none;"><%=falla[4]%></textarea>
                                 </div>
                             </div>
 

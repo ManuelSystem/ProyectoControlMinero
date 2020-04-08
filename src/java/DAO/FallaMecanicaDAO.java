@@ -76,6 +76,7 @@ public class FallaMecanicaDAO {
             sql = "UPDATE fallamecanica SET chasisVehiculo='"+f.getChasisVehiculo()+"', nombreConductor='"+f.getNombreConductor()+"', "
                     + "fechaRegistro='"+f.getFechaRgistro()+"', descripcion='"+f.getDescripcionFalla()+"' WHERE idFalla="+f.getIdFalla()+"";
         } catch (Exception e) {
+            System.err.println("SQL Error: " + e.getMessage());
         }
         return Database.ejecutarActualizacionSQL(sql);
     }

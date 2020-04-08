@@ -41,7 +41,7 @@
                                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="user" placeholder="Usuario">
+                                            <input type="text" class="form-control" name="user" placeholder="Usuario" required="">
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                                             <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="password" class="form-control" name="password" placeholder="password">
+                                            <input type="password" class="form-control" name="password" placeholder="password" required="">
                                         </div>
                                     </div>
                                 </div>

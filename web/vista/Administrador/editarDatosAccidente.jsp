@@ -1,6 +1,6 @@
 <%-- 
-    Document   : editarDatosConductor
-    Created on : 23/03/2020, 12:04:31 PM
+    Document   : editarDatosAccidente
+    Created on : 6/04/2020, 09:38:01 PM
     Author     : Manuel
 --%>
 
@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Editar Conductor - Control Minero</title>
+        <title>Editar Accidente - Control Minero</title>
 
         <link href="../../lib/fontawesome/css/all.css" rel="stylesheet" type="text/css"/>
         <link href="../../lib/fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css"/>
@@ -23,23 +23,23 @@
         <link href="../../css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-       <%
+        <%
             Facade faca = new Facade();
-            String cedula = (String)session.getAttribute("parametroCodigo");
-            String idConductor = request.getParameter("idConductor");
-            
+            String cedula = (String) session.getAttribute("parametroCodigo");
+            String idAccidente = request.getParameter("idAccidente");
+
             ArrayList<String> datoSesion = faca.obtenerDatosPersona(cedula);
             String dato = datoSesion.toString().replace("[", "").replace("]", "");
             String[] sesion = dato.split("/");
-            
-            ArrayList<String> datosCondu = faca.obtenerDatosConductor(idConductor);
-            String dtCo= datosCondu.toString().replace("[", "").replace("]", "");
-            String[] conductor = dtCo.split("/");
+
+            ArrayList<String> datosAcci = faca.obtenerDatosAccidente(idAccidente);
+            String dtAc = datosAcci.toString().replace("[", "").replace("]", "");
+            String[] acci = dtAc.split("/");
+
         %>
-        
-        <%
-            if (request.getParameter("mens") != null) { %>
-                <input type="text" name="obtInfo" id="obtInfo" value="<%out.println(request.getParameter("mens")); %>" style="visibility: hidden"> <%
+
+        <%            if (request.getParameter("mens") != null) { %>
+        <input type="text" name="obtInfo" id="obtInfo" value="<%out.println(request.getParameter("mens")); %>" style="visibility: hidden"> <%
             }
         %>
 
@@ -70,7 +70,6 @@
                             </ul>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </nav>
@@ -95,9 +94,9 @@
 
                     <ul class="nav nav-sidebar">
                         <li><a href="administrador.jsp"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a></li>
-                        <li class="active"><a href="conductor.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
+                        <li><a href="conductor.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
                         <li><a href="vehiculo.jsp"> <i class="fas fa-truck-moving"></i> Vehículos</a></li>
-                        <li><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
+                        <li class="active"><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
                         <li><a href="fallaMecanica.jsp"> <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Fallas Mecánicas</a></li>
                         <li><a href="patio.jsp"> <i class="fas fa-route"></i> Patios de Descargue</a></li>
                         <li><a href="materialMinero.jsp"> <i class="fas fa-mountain"></i> Material Minero</a></li>
@@ -112,71 +111,48 @@
 
                     <ol class="breadcrumb">
                         <li><a href="administrador.jsp">Inicio</a></li>
-                        <li >Listado Conductores</li>
-                        <li class="active">Editar Conductor</li>
+                        <li >Listado de Accidentes</li>
+                        <li class="active">Editar Accidente</li>
                     </ol>
 
-                    <h1 class="page-header">Actualización del Conductor</h1>
-
-                    <h4 class="">Datos del Conductor Seleccionado:</h4>
+                    <h1 class="page-header">Actualización de Accidente</h1>
+                    
+                    <h4 class="">Datos del conductor y vehículo de accidente: </h4>
 
                     <div class="row contenedorForms">
-                        <form action="../../ServletRegistroConductor" method="post">
+
+                        <form action="../../ServletRegistroAccidente" method="post">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="">N° de documento del Conductor</label>
+                                    <input type="text" class="form-control" name="numeroCedulaCon"  value="<%=acci[2]%>" required="" readonly="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Nombre del Conductor</label>
+                                    <input type="text" class="form-control" name="NombresCon"  value="<%=acci[3]%>" required="" readonly="">
+                                </div>
+                            </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="">Nombres</label>
-                                    <input type="text" class="form-control" name="NombresCon" placeholder="Tu Nombre" value="<%=conductor[3] %>" required="">
+                                    <label for="">N° de chasis del vehículo</label>
+                                    <input type="text" class="form-control" name="chasis"  value="<%=acci[1]%>" required="" readonly="">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="">Apellidos</label>
-                                    <input type="text" class="form-control" name="ApellidosCon" placeholder="Tu Apellido" value="<%=conductor[4] %>" required="">
+                                    <label for="">Fecha Actualización</label>
+                                    <input type="date" class="form-control" name="fechaRegistro"  value="<%=acci[4]%>" required="">
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="">Descripción del Accidente</label>
+                                    <textarea type="text" class="form-control" rows="4" name="descripcionAcci"  placeholder="Escriba una breve descripción del Accidente..." required="" style="resize: none;"><%=acci[5]%></textarea>
                                 </div>
                             </div>
 
-                            <div class="form-row">
-                                 <div class="form-group col-md-6">
-                                            <label for="">Tipo Documento</label>
-                                            <input type="text" class="form-control" name="TipoDocumentoCon" value="<%=conductor[1] %>" required="" readonly="">
-                                        </div>
-                                <div class="form-group col-md-6">
-                                    <label for="">N° Documento</label>
-                                    <input type="text" class="form-control" name="numeroCedulaCon" placeholder="Número de documento" value="<%=conductor[2] %>" required="" readonly="">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="">Telefono</label>
-                                    <input type="text" class="form-control" name="telefonoCon" placeholder="Tu Telefono" value="<%=conductor[5] %>" required="">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Correo Electronico</label>
-                                    <input type="email" class="form-control" name="emailCon" placeholder="Tu Cooreo Electronico" value="<%=conductor[6] %>" required="">
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="">Dirección Casa</label>
-                                    <input type="text" class="form-control" name="direccionCon" placeholder="Tu Direccion" value="<%=conductor[7] %>" required="">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="">Sexo</label>
-                                    <input type="text" class="form-control"  name="TipoSexoCon"  value="<%=conductor[8] %>" required="">
-                                        
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Edad</label>
-                                    <input type="number" class="form-control" placeholder="Edad" name="edadCon" min="1" max="120" value="<%=conductor[9] %>"required="">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="">Estado Licencia</label>
-                                    <input type="text" class="form-control" placeholder="En linea o Vencido" name="licenciaEstado" value="" required="">
-                                </div>
-                            </div>
-                            <input type="text" class="form-control" name="idConductorInput" value="<%=idConductor %>" style="visibility:hidden ">
-                            <button type="submit" class="btn btn-primary" name="accion" value="actualizarConductor">Actualizar Conductor</button>
+                            <input type="text" class="form-control" name="idAccidenteInput" value="<%=idAccidente%>" style="visibility:hidden ">
+                            <button type="submit" class="btn btn-primary" name="accion" value="actualizarAcci">Actualizar Accidente</button>
                         </form>
 
                     </div>
@@ -185,17 +161,18 @@
             </div>
         </div>
 
-    <!-- modal cerrar sesion -->
-    <%@ include file="../HTML/modal_CerrarSesion.jsp" %> 
-    <!-- modal error registro-->
-    <%@ include file="../HTML/modal_ErrorRegistro.jsp" %> 
-    <!-- modal Registro exitoso -->
-    <%@ include file="../HTML/modal_RegistroExitoso.jsp" %> 
+        <!-- modal Registro actualziado exitoso -->
+        <%@ include file="../HTML/modal_ActualizacionExitosa.jsp" %> 
+        <!-- modal cerrar sesion -->
+        <%@ include file="../HTML/modal_CerrarSesion.jsp" %> 
+        <!-- modal error registro-->
+        <%@ include file="../HTML/modal_ErrorRegistro.jsp" %> 
 
 
-    <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
-    <script src="../../lib/jquery/jquery-3.3.1.js" type="text/javascript"></script>
-    <script src="../../lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../../js/script_Admin.js" type="text/javascript"></script>
-</body>
+
+        <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
+        <script src="../../lib/jquery/jquery-3.3.1.js" type="text/javascript"></script>
+        <script src="../../lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../../js/script_Admin.js" type="text/javascript"></script>
+    </body>
 </html>

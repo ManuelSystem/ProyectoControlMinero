@@ -23,21 +23,21 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Servelet_login", urlPatterns = {"/Servelet_login"})
 public class Servelet_login extends HttpServlet {
 
-   Facade faca = new Facade();
-    
+    Facade faca = new Facade();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String accion = request.getParameter("accion");
-            
-            if(accion.equals("login")){
-                Login(request, response); 
+
+            if (accion.equals("login")) {
+                Login(request, response);
             }
-            if(accion.equals("logout")){
-                Logout(request, response); 
+            if (accion.equals("logout")) {
+                Logout(request, response);
             }
         }
     }
@@ -55,6 +55,7 @@ public class Servelet_login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
@@ -81,32 +82,34 @@ public class Servelet_login extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void Login(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException,IOException {
-     HttpSession session = request.getSession();
-    PrintWriter out = response.getWriter();
-            
+    private void Login(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        //session.setMaxInactiveInterval(20);
+        PrintWriter out = response.getWriter();
+
         String usuario = request.getParameter("user");
         String clave = request.getParameter("password");
-        
+       
         try {
             ArrayList<String> retorno = iniciarSesion(usuario, clave);
-            if(retorno.isEmpty()){
-                
+            if (retorno.isEmpty()) {
+
                 response.sendRedirect("index.jsp?mens='Usuario Incorrecto'");
-            }else{
-                for(String hh : retorno) {
-                     switch (hh.split("/")[14]){
-                case "Administrador":
-                    request.getSession().setAttribute("parametroCodigo", usuario);
-                        response.sendRedirect("vista/Administrador/administrador.jsp");
-                    break;
-                case "Auxiliar": 
-                request.getSession().setAttribute("parametroCodigo", usuario);
-                        response.sendRedirect("vista/AuxiliarPatio/cargamento.jsp");
-                        break;
-            }
-}
+            } else {
+                for (String hh : retorno) {
+                    switch (hh.split("/")[14]) {
+                        case "Administrador":
+                            request.getSession().setAttribute("parametroCodigo", usuario);
+                            response.sendRedirect("vista/Administrador/administrador.jsp");
+                            break;
+                        case "Auxiliar":
+                            request.getSession().setAttribute("parametroCodigo", usuario);
+                            response.sendRedirect("vista/AuxiliarPatio/cargamento.jsp");
+                            break;
+                    }
+                }
             }
         } catch (Exception e) {
             out.print(e);
@@ -114,13 +117,13 @@ public class Servelet_login extends HttpServlet {
     }
 
     private void Logout(HttpServletRequest request, HttpServletResponse response)
-       throws ServletException, IOException {
+            throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         session.invalidate();
         response.sendRedirect("index.jsp");
     }
-    
-    private ArrayList<String>iniciarSesion(String usuario, String clave){
+
+    private ArrayList<String> iniciarSesion(String usuario, String clave) {
         ArrayList<String> retorno;
         retorno = faca.iniciarSesion(usuario, clave);
         return retorno;

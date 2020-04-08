@@ -5,16 +5,20 @@
  */
 package FACADE;
 
+import DAO.AccidenteDAO;
 import DAO.AuxiliarDAO;
 import DAO.ConductorDAO;
 import DAO.FallaMecanicaDAO;
+import DAO.MaterialMineroDAO;
 import DAO.PersonaDAO;
 import DTO.AuxiliarDTO;
 import DTO.PersonaDTO;
 import DTO.VehiculoDTO;
 import DAO.VehiculoDAO;
+import DTO.AccidenteDTO;
 import DTO.ConductorDTO;
 import DTO.FallaMecanicaDTO;
+import DTO.MaterialMineroDTO;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -184,11 +188,76 @@ public class Facade {
     }
 
     public boolean actualizarFalla(String chasisVehi, String conductor, String fechaRegistro, String descriFalla, String idFalla) {
-       FallaMecanicaDTO f = new FallaMecanicaDTO(idFalla, chasisVehi, conductor, fechaRegistro, descriFalla);
-       return FallaMecanicaDAO.actualizarFalla(f);
+        FallaMecanicaDTO f = new FallaMecanicaDTO(idFalla, chasisVehi, conductor, fechaRegistro, descriFalla);
+        return FallaMecanicaDAO.actualizarFalla(f);
     }
 
     public boolean eliminarFalla(String idFalla) {
-    return FallaMecanicaDAO.eliminarFalla(idFalla);  
+        return FallaMecanicaDAO.eliminarFalla(idFalla);
     }
+
+    public ArrayList<String> validarSiExisteUnAccidente(String chasisVehicu) {
+        ArrayList<String> dato;
+        dato = AccidenteDAO.validarSiExisteUnAccidente(chasisVehicu);
+        return dato;
+    }
+
+    public boolean agregarAccidente(String chasisVehicu, String cedulaCondu, String nombreCondu, String fechaaccidente, String descripcionAcci) {
+        AccidenteDTO acc = new AccidenteDTO(chasisVehicu, cedulaCondu, nombreCondu, fechaaccidente, descripcionAcci);
+        return AccidenteDAO.agregarAccidente(acc);
+    }
+
+    public ArrayList<String> obtenerDatosAccidente() {
+        ArrayList<String> dato;
+        dato = AccidenteDAO.obtenerDatosAccidente();
+        return dato;
+    }
+
+    public ArrayList<String> obtenerDatosAccidente(String idAccidente) {
+        ArrayList<String> datos;
+        datos = AccidenteDAO.obtenerDatosAccidente(idAccidente);
+        return datos;
+    }
+
+    public boolean atualizarAccidente(String idAccidente, String chasisVehicu, String cedulaCondu, String nombreCondu, String fechaaccidente, String descripcionAcci) {
+        AccidenteDTO aci = new AccidenteDTO(idAccidente, chasisVehicu, cedulaCondu, nombreCondu, fechaaccidente, descripcionAcci);
+        return AccidenteDAO.atualizarAccidente(aci);
+    }
+
+    public boolean eliminarAccidente(String idAccidente) {
+        return AccidenteDAO.eliminarAccidente(idAccidente);
+    }
+
+    public ArrayList<String> validarSiExisteMaterial(String nombreMaterial) {
+        ArrayList<String> dato;
+        dato = MaterialMineroDAO.validarSiExisteMaterial(nombreMaterial);
+        return dato;
+    }
+
+    public boolean agregarMaterial(String tipoMaterial, String nombreMaterial, String descripcion) {
+        MaterialMineroDTO ma = new MaterialMineroDTO(tipoMaterial, nombreMaterial, descripcion);
+        return MaterialMineroDAO.agregarMaterial(ma);
+    }
+
+    public ArrayList<String> obtenerDatosMaterial() {
+        ArrayList<String> dato;
+        dato = MaterialMineroDAO.obtenerDatosMaterial();
+        return dato;
+    }
+
+    public ArrayList<String> obtenerDatosMaterial(String idMaterial) {
+        ArrayList<String> datos;
+        datos = MaterialMineroDAO.obtenerDatosMaterial(idMaterial);
+        return datos;
+    }
+
+    public boolean actualizarMaterial(String idMaterial, String tipoMaterial, String nombreMaterial, String descripcion) {
+        MaterialMineroDTO ma = new MaterialMineroDTO(idMaterial, tipoMaterial, nombreMaterial, descripcion);
+        return MaterialMineroDAO.actualizarMaterial(ma);
+    }
+
+    public boolean eliminarMaterial(String idMaterial) {
+    return MaterialMineroDAO.eliminarMaterial(idMaterial);    
+    }
+
 }
