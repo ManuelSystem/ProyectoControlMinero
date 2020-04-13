@@ -8,7 +8,8 @@
                             <div class="iconModalErrorUsuario">
                                 <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                             </div>
-                            <p>¡ERROR! - No se a podido Eliminar Correctamente</p>
+                            <img src="../../img/cancelar.png" alt=""/>
+                        <h4>¡ERROR! - Hubo algun error en el sistema</h4>
 
                         </div>
 

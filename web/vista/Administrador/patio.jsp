@@ -1,9 +1,11 @@
 <%-- 
     Document   : patio
-    Created on : 26/02/2020, 05:20:49 PM
+    Created on : 11/04/2020, 12:00:21 AM
     Author     : Manuel
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="FACADE.Facade"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Patios Descargue - Control Minero</title>
+        <title>Patio de Descargue - Control Minero</title>
 
         <link href="../../lib/fontawesome/css/all.css" rel="stylesheet" type="text/css"/>
         <link href="../../lib/fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css"/>
@@ -23,8 +25,21 @@
         <link href="../../css/DataTabla.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <%
+            Facade faca = new Facade();
+            if (request.getParameter("mens") != null) { %>
+        <input type="text" name="obtInfo" id="obtInfo" value="<%out.println(request.getParameter("mens")); %>" style="visibility: hidden;"> <%
+            }
+        %>
+        <%
+            String cedula = (String) session.getAttribute("parametroCodigo");
+
+            ArrayList<String> datoSesion = faca.obtenerDatosPersona(cedula);
+            String dato = datoSesion.toString().replace("[", "").replace("]", "");
+            String[] sesion = dato.split("/");
 
 
+        %>
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
@@ -66,10 +81,11 @@
                             <img src="../../img/logo2.png" width="130" height="130" class="img-responsive" alt="Img1">
 
                         </div>
-                        <span class="col-md-12 userNombre"></span>
+                        <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
+                        <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4]%></span>
                         <div class="iconOpcAdmin">
                             <a> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
-                            <a> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
+                            <a href="#" data-toggle="modal" data-target="#myModalCerrar"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
 
                     </div>
@@ -88,80 +104,149 @@
                         <li><a href="usuario.jsp"> <i class="fas fa-users"></i> Usuarios</a></li>
                     </ul>
 
-
-
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Módulo de Patio de Descargue</h1>
 
-
-
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Tabla Patios</a></li>
-                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Actualizar Patio</a></li>
-
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Tabla Patio de Descargue</a></li>
                     </ul>
-
-                    <div role="tabpanel" class="tab-pane active" id="home">
-                        <br>
-                        <br>
-                        <div class="row">
-                            <div class="col-xs-6 col-md-4">
-                                <button type="submit" class="btn btn-warning btn-lg">Agregar Patio</button>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-6 col-md-4">
+                                    <button type="submit" class="btn btn-warning btn-lg" href="#" data-toggle="modal" data-target="#myModal">Agregar Patio</button>
+                                </div>
                             </div>
+                            <h4>Listado de Patios de Descargue </h4>
+                            <br>
+
+
+
+                            <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Departamento</th>
+                                        <th>Municipio</th>
+                                        <th>Nombre de Patio</th>
+                                        <th>Descripción Patio</th>
+                                        <th>Editar</th>
+                                        <th>Borrar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        ArrayList<String> lista = faca.obtenerDatosPatio();
+
+                                        for (int i = 0; i < lista.size(); i++) {
+                                            String dato1 = lista.get(i).toString();
+                                            String[] dato2 = dato1.split("/");
+                                    %>
+
+                                    <tr>
+                                        <td> <%=dato2[1]%> </td>
+                                        <td> <%=dato2[2]%> </td>
+                                        <td> <%=dato2[3]%> </td>
+                                        <td> <%=dato2[5]%> </td>
+                                        <td><input type="button" class="btn btn-success" name="btnModificar" value="Editar" onclick="location.href = 'editarDatosPatio.jsp?idPatio=<%=dato2[0]%>'"> </td>
+                                        <td><input type="button" class="btn btn-danger" name="btnEliminar" value="Eliminar" onclick="location.href = '../../ServletRegistroPatioDescargue?idPatio=<%=dato2[0]%>&&accion=eliminar'"> </td>
+                                    </tr>
+
+                                    <% }%>
+                                </tbody>
+                            </table>
                         </div>
-                        <br>
-                        <h4>Listado de Patios de Descargue </h4>
-                        <br>
-
-
-
-                        <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Numero Documento</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Cargo</th>
-                                    <th>Editar</th>
-                                    <th>Borrar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                                    for (int i = 0; i < 12; i++) {
-
-
-                                %>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
-
-                                <% }%>
-                            </tbody>
-                        </table>
                     </div>
-
-
                 </div>
-            </div>
 
+            </div>
         </div>
 
+    </div>
 
-        <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
-        <script src="../../lib/jquery/jquery-3.3.1.js" type="text/javascript"></script>
-        <script src="../../lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="../../lib/bootstrap/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
-        <script src="../../lib/bootstrap/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="../../js/tabla.js" type="text/javascript"></script>
-    </body>
-</html>
+    <!-- modal cerrar sesion -->
+    <%@ include file="../HTML/modal_CerrarSesion.jsp" %> 
+    <!-- modal Registro Exitoso -->
+    <%@ include file="../HTML/modal_RegistroExitoso.jsp" %> 
+    <!-- modal Eliminado exitoso -->
+    <%@ include file="../HTML/modal_EliminadoExitosamente.jsp" %>
+    <!-- modal Error Registro-->
+    <%@ include file="../HTML/modal_ErrorRegistro.jsp" %>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
 
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2 class="modal-title">Ventana de Registro</h2>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <!-- cuadro de registro del Usuario-->
+                        <form action="../../ServletRegistroPatioDescargue" class="form-horizontal" method="post">
+                            <div id="Docente-Administrativo" class="marcoSeleccionado">
+                                <br>
+                                <h5> * Rellene Los Campos para el Formulario: <span id="objRecivido"></span> </h5>
+
+                                <div class="row">
+
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <input type="text" class="form-control" placeholder="Digite el Nombre del Departamento" name="nombreDepartamento"
+                                                   required="" minlength="7" maxlength="25" onkeypress="return soloLetras(event)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <input type="text" class="form-control" placeholder="Digite el nombre del Municipio" name="nombreMunicipio" 
+                                                   required=""  minlength="7" maxlength="25" onkeypress="return soloLetras(event)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <input type="text" class="form-control" name="nombrePatio" placeholder="Nombre del Patio" 
+                                                   required="" minlength="7" maxlength="25" onkeypress="return soloLetras(event)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <input type="number" class="form-control" placeholder="Distancia aprox. de la mina al patio." name="distancia" aria-describedby="basic-addon2" required="">
+                                            <span class="input-group-addon" id="basic-addon2">Km</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <textarea class="form-control" rows="4" name="descripcionPatio" placeholder="Escriba una breve descripción del patio de descargue..." 
+                                                      required="" style="resize: none;"></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <button type="submit" class="btn btn-primary" name="accion" value="agregarPatio">Registrar</button>
+                            </div>
+                            <br>
+                            </div>
+                        </form>  
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
+            <script src="../../lib/jquery/jquery-3.3.1.js" type="text/javascript"></script>
+            <script src="../../lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="../../lib/bootstrap/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+            <script src="../../lib/bootstrap/js/jquery.dataTables.min.js" type="text/javascript"></script>
+            <script src="../../js/script_Admin.js" type="text/javascript"></script>
+            <script src="../../js/soloLetras.js" type="text/javascript"></script>
+            </body>
+            </html>

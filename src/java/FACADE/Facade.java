@@ -10,6 +10,7 @@ import DAO.AuxiliarDAO;
 import DAO.ConductorDAO;
 import DAO.FallaMecanicaDAO;
 import DAO.MaterialMineroDAO;
+import DAO.PatioDAO;
 import DAO.PersonaDAO;
 import DTO.AuxiliarDTO;
 import DTO.PersonaDTO;
@@ -19,6 +20,7 @@ import DTO.AccidenteDTO;
 import DTO.ConductorDTO;
 import DTO.FallaMecanicaDTO;
 import DTO.MaterialMineroDTO;
+import DTO.PatioDTO;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -257,7 +259,38 @@ public class Facade {
     }
 
     public boolean eliminarMaterial(String idMaterial) {
-    return MaterialMineroDAO.eliminarMaterial(idMaterial);    
+        return MaterialMineroDAO.eliminarMaterial(idMaterial);
     }
 
+    public ArrayList<String> validarSiExisteUnPatio(String nomPatio) {
+        ArrayList<String> dato;
+        dato = PatioDAO.validarSiExisteUnPatio(nomPatio);
+        return dato;
+    }
+
+    public boolean agregarPatioDescargue(String departamento, String municipio, String nomPatio, String distancia, String descripcion) {
+        PatioDTO pa = new PatioDTO(departamento, municipio, nomPatio, distancia, descripcion);
+        return PatioDAO.agregarPatioDescargue(pa);
+    }
+
+    public ArrayList<String> obtenerDatosPatio() {
+        ArrayList<String> dato;
+        dato = PatioDAO.obtenerDatosPatio();
+        return dato;
+    }
+    
+    public ArrayList<String> obtenerDatosPatio(String idPatio) {
+        ArrayList<String> dato;
+        dato = PatioDAO.obtenerDatosPatio(idPatio);
+        return dato;
+    }
+
+    public boolean actualizarPatio(String idPatio, String departamento, String municipio, String nomPatio, String distancia, String descripcion) {
+    PatioDTO pat = new PatioDTO(idPatio, departamento, municipio, nomPatio, distancia, descripcion);
+    return PatioDAO.actualizarPatio(pat);
+    }
+
+    public boolean eliminarPatio(String idPatio) {
+    return PatioDAO.eliminarPatio(idPatio);
+    }
 }

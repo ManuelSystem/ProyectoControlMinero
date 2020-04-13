@@ -8,7 +8,6 @@ package Controlador;
 import FACADE.Facade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Manuel
  */
-@WebServlet(name = "ServletRegistroMaterialMinero", urlPatterns = {"/ServletRegistroMaterialMinero"})
-public class ServletRegistroMaterialMinero extends HttpServlet {
+@WebServlet(name = "ServletRegistroPatioDescargue", urlPatterns = {"/ServletRegistroPatioDescargue"})
+public class ServletRegistroPatioDescargue extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,16 +38,16 @@ public class ServletRegistroMaterialMinero extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
+            /* TODO output your page here. You may use following sample code. */
             String accion = request.getParameter("accion");
-            if (accion.equals("agregarMaterial")) {
-                agregarMaterial(request, response);
+            if (accion.equals("agregarPatio")) {
+                agregarPatio(request, response);
             }
-            if (accion.equals("actualizarMaterial")) {
-                actualizarMaterial(request, response);
+            if (accion.equals("actualizarPatio")) {
+                actualizarPatio(request, response);
             }
             if (accion.equals("eliminar")) {
-                eliminarMaterial(request, response);
+                eliminarPatio(request, response);
             }
         }
     }
@@ -92,93 +91,96 @@ public class ServletRegistroMaterialMinero extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void agregarMaterial(HttpServletRequest request, HttpServletResponse response)
+    private void agregarPatio(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-
-        String tipoMaterial = request.getParameter("tipoMaterial");
-        String nombreMaterial = request.getParameter("nombreMaterial");
-        String descripcion = request.getParameter("descripcionMaterial");
+        String departamento = request.getParameter("nombreDepartamento");
+        String municipio = request.getParameter("nombreMunicipio");
+        String nomPatio = request.getParameter("nombrePatio");
+        String distancia = request.getParameter("distancia");
+        String descripcion = request.getParameter("descripcionPatio");
         try {
-            ArrayList<String> valida = validarSiExisteMaterial(nombreMaterial);
-            if (valida.isEmpty()) {
-                boolean retorno = agregarMaterial(tipoMaterial, nombreMaterial, descripcion);
+            ArrayList<String> validar = validarSiExisteUnPatio(nomPatio);
+            if (validar.isEmpty()) {
+                boolean retorno = agregarPatioDescargue(departamento, municipio, nomPatio, distancia, descripcion);
                 if (retorno == true) {
-                    response.sendRedirect("vista/Administrador/materialMinero.jsp?mens='RegistroExitoso'");
+                    response.sendRedirect("vista/Administrador/patio.jsp?mens='RegistroExitoso'");
                 } else {
-                    response.sendRedirect("vista/Administrador/materialMinero.jsp?mens='ErrorRegistro'");
+                    response.sendRedirect("vista/Administrador/patio.jsp?mens='ErrorRegistro'");
                 }
             } else {
-                response.sendRedirect("vista/Administrador/materialMinero.jsp?mens='ErrorRegistro'");
+                response.sendRedirect("vista/Administrador/patio.jsp?mens='ErrorRegistro'");
             }
         } catch (Exception e) {
             out.println(e);
         }
     }
 
-    private void actualizarMaterial(HttpServletRequest request, HttpServletResponse response)
+    private void actualizarPatio(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+
         PrintWriter out = response.getWriter();
+        String departamento = request.getParameter("departamento");
+        String municipio = request.getParameter("municipio");
+        String nomPatio = request.getParameter("nombrePatio");
+        String distancia = request.getParameter("distancia");
+        String descripcion = request.getParameter("descripcionPatio");
 
-        String tipoMaterial = request.getParameter("tipoMaterial");
-        String nombreMaterial = request.getParameter("nombreMaterial");
-        String descripcion = request.getParameter("descripcionMaterial");
-        String idMaterial = request.getParameter("idMaterialInput");
-
+        String idPatio = request.getParameter("idPatioInput");
         try {
-            boolean actualizar = actualizarMaterial(idMaterial, tipoMaterial, nombreMaterial, descripcion);
-            if (actualizar == true) {
-                response.sendRedirect("vista/Administrador/materialMinero.jsp?mens='RegistroExitoso'");
+            boolean retorno = actualizarPatio(idPatio, departamento, municipio, nomPatio, distancia, descripcion);
+            if (retorno == true) {
+                response.sendRedirect("vista/Administrador/patio.jsp?mens='RegistroExitoso'");
             } else {
-                response.sendRedirect("vista/Administrador/editarDatosMaterial.jsp?mens='ErrorRegistro'");
+                response.sendRedirect("vista/Administrador/editarDatosPatio.jsp?mens='ErrorRegistro'");
             }
+
         } catch (Exception e) {
             out.println(e);
         }
 
     }
 
-    private void eliminarMaterial(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void eliminarPatio(HttpServletRequest request, HttpServletResponse response) 
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
-
-        String idMaterial = request.getParameter("idMaterial");
+        
+        String idPatio = request.getParameter("idPatio");
         try {
-            boolean eliminar = eliminarMaterial(idMaterial);
-            if (eliminar == true) {
-                response.sendRedirect("vista/Administrador/materialMinero.jsp?mens='EliminadoExtitosamente'");
-            } else {
-                response.sendRedirect("vista/Administrador/materialMinero.jsp?mens='ErrorRegistro'");
+            boolean retorno = eliminarPatio(idPatio);
+            if(retorno == true) {
+                response.sendRedirect("vista/Administrador/patio.jsp?mens='EliminadoExtitosamente'");
+            }else{
+                response.sendRedirect("vista/Administrador/patio.jsp?mens='ErrorRegistro'");
             }
         } catch (Exception e) {
             out.println(e);
         }
-
     }
 
-    private ArrayList<String> validarSiExisteMaterial(String nombreMaterial) {
+    private ArrayList<String> validarSiExisteUnPatio(String nomPatio) {
         ArrayList<String> dato;
-        dato = faca.validarSiExisteMaterial(nombreMaterial);
+        dato = faca.validarSiExisteUnPatio(nomPatio);
         return dato;
     }
 
-    private boolean agregarMaterial(String tipoMaterial, String nombreMaterial, String descripcion) {
-        return faca.agregarMaterial(tipoMaterial, nombreMaterial, descripcion);
+    private boolean agregarPatioDescargue(String departamento, String municipio, String nomPatio, String distancia, String descripcion) {
+        return faca.agregarPatioDescargue(departamento, municipio, nomPatio, distancia, descripcion);
     }
 
-    private boolean actualizarMaterial(String idMaterial, String tipoMaterial, String nombreMaterial, String descripcion) {
-        return faca.actualizarMaterial(idMaterial, tipoMaterial, nombreMaterial, descripcion);
+    private boolean actualizarPatio(String idPatio, String departamento, String municipio, String nomPatio, String distancia, String descripcion) {
+        return faca.actualizarPatio(idPatio, departamento, municipio, nomPatio, distancia, descripcion);
     }
 
-    private boolean eliminarMaterial(String idMaterial) {
-        return faca.eliminarMaterial(idMaterial);
+    private boolean eliminarPatio(String idPatio) {
+    return faca.eliminarPatio(idPatio);
     }
 
 }
