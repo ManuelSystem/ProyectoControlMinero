@@ -137,6 +137,7 @@
                                         <th>Color</th>
                                         <th>Seguro</th>
                                         <th>Tecnomecánico</th>
+                                        <th>Imagén</th>
                                         <th>Editar</th>
                                         <th>Borrar</th>
                                     </tr>
@@ -157,6 +158,7 @@
                                         <td> <%=dato2[3]%> </td>
                                         <td> <%=dato2[5]%> </td>
                                         <td> <%=dato2[6]%> </td>
+                                        <td style="text-align: center"><img src="../../img/vehiculos/<%=dato2[8]%>" alt="imagen" style="width: 150px; height: 150px;"></td>
                                         <td><input type="button" class="btn btn-success" name="btnModificar" value="Editar" onclick="location.href = 'editarDatosVehiculo.jsp?idVehiculo=<%=dato2[0]%>'"> </td>
                                         <td><input type="button" class="btn btn-danger" name="btnEliminar" value="Eliminar" onclick="location.href = '../../ServletRegistroVehiculo?idVehiculo=<%=dato2[0]%>&&accion=eliminar'"> </td>
                                     </tr>

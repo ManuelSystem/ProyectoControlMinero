@@ -139,7 +139,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="">Distancia apróximada de recorrido al Patio</label>
-                                    <input type="text" class="form-control" name="distancia"  value="<%=patio[4]%>" required="" >
+                                    <input type="number" class="form-control" name="distancia"  value="<%=patio[4]%>" required="" >
                                 </div>
                             </div>
                             <div class="form-row">

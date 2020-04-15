@@ -20,20 +20,9 @@ public class VehiculoDTO {
     private String seguroVehi;
     private String tecnomecaVehi;
     private String fechaRegistroV;
-    private InputStream imgVehi;
+    private String imgVehi;
 
-    public VehiculoDTO(String idVehiculo, String marcaVehi, String modeloVehi, String colorVehi, String chasisVehi, String seguroVehi, String tecnomecaVehi, String fechaRegistroV) {
-        this.idVehiculo = idVehiculo;
-        this.marcaVehi = marcaVehi;
-        this.modeloVehi = modeloVehi;
-        this.colorVehi = colorVehi;
-        this.chasisVehi = chasisVehi;
-        this.seguroVehi = seguroVehi;
-        this.tecnomecaVehi = tecnomecaVehi;
-        this.fechaRegistroV = fechaRegistroV;
-    }
-
-    public VehiculoDTO(String marcaVehi, String modeloVehi, String colorVehi, String chasisVehi, String seguroVehi, String tecnomecaVehi, String fechaRegistroV, InputStream imgVehi) {
+    public VehiculoDTO(String marcaVehi, String modeloVehi, String colorVehi, String chasisVehi, String seguroVehi, String tecnomecaVehi, String fechaRegistroV, String imgVehi) {
         this.marcaVehi = marcaVehi;
         this.modeloVehi = modeloVehi;
         this.colorVehi = colorVehi;
@@ -44,10 +33,11 @@ public class VehiculoDTO {
         this.imgVehi = imgVehi;
     }
 
+   
+
 
     public VehiculoDTO() {
       }
-    
 
     public String getIdVehiculo() {
         return idVehiculo;
@@ -113,12 +103,15 @@ public class VehiculoDTO {
         this.fechaRegistroV = fechaRegistroV;
     }
 
-    public InputStream getImgVehi() {
+    public String getImgVehi() {
         return imgVehi;
     }
 
-    public void setImgVehi(InputStream imgVehi) {
+    public void setImgVehi(String imgVehi) {
         this.imgVehi = imgVehi;
     }
+    
+
+   
     
 }

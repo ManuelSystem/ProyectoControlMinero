@@ -6,9 +6,13 @@
 package Controlador;
 
 import FACADE.Facade;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -98,13 +102,24 @@ public class ServletRegistroVehiculo extends HttpServlet {
         String seguro = request.getParameter("seguroVeh");
         String tecnomecanica = request.getParameter("tecnomecanicoVeh");
         String fechaRegis = request.getParameter("fechaRegistro");
+        
+        
         Part part = request.getPart("imgfile");
+        String myStorageFolder = "/img/vehiculos";
+        String getImageFolderPath = request.getServletContext().getRealPath(myStorageFolder);
+        String ruta = getImageFolderPath.replace("\\build", "");
+        System.out.print(ruta);
+        
+        File carpetaDestino = new File(ruta);
+        String imagen = part.getSubmittedFileName();
+        File archivoDestino = new File(carpetaDestino, part.getSubmittedFileName());
         InputStream inputStream = part.getInputStream();
+        Files.copy(inputStream, archivoDestino.toPath());
 
         try {
             ArrayList<String> dato = validarSiExisteUnVehiculo(chasis);
             if (dato.isEmpty()) {
-                boolean retorno = agregarVehiculo(marcaVehi, modelo, color, chasis, seguro, tecnomecanica, fechaRegis, inputStream);
+                boolean retorno = agregarVehiculo(marcaVehi, modelo, color, chasis, seguro, tecnomecanica, fechaRegis, imagen);
                 if (retorno == true) {
                     response.sendRedirect("vista/Administrador/vehiculo.jsp?mens='RegistroExitoso'");
                 } else {
@@ -119,6 +134,7 @@ public class ServletRegistroVehiculo extends HttpServlet {
         }
 
     }
+   
 
     private void ActualizaVehiculo(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -163,8 +179,8 @@ public class ServletRegistroVehiculo extends HttpServlet {
         }
     }
 
-    private boolean agregarVehiculo(String marcaVehi, String modelo, String color, String chasis, String seguro, String tecnomecanica, String fechaRegis, InputStream inputStream) {
-        return faca.agregarVehiculo(marcaVehi, modelo, color, chasis, seguro, tecnomecanica, fechaRegis, inputStream);
+    private boolean agregarVehiculo(String marcaVehi, String modelo, String color, String chasis, String seguro, String tecnomecanica, String fechaRegis, String imagen) {
+        return faca.agregarVehiculo(marcaVehi, modelo, color, chasis, seguro, tecnomecanica, fechaRegis, imagen);
     }
 
     private ArrayList<String> validarSiExisteUnVehiculo(String chasis) {

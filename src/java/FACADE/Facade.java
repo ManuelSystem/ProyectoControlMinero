@@ -102,8 +102,8 @@ public class Facade {
         return PersonaDAO.actualizarAdmin(p);
     }
 
-    public boolean agregarVehiculo(String marcaVehi, String modelo, String color, String chasis, String seguro, String tecnomecanica, String fechaRegis, InputStream inputStream) {
-        VehiculoDTO v = new VehiculoDTO(marcaVehi, modelo, color, chasis, seguro, tecnomecanica, fechaRegis, inputStream);
+    public boolean agregarVehiculo(String marcaVehi, String modelo, String color, String chasis, String seguro, String tecnomecanica, String fechaRegis, String imagen) {
+        VehiculoDTO v = new VehiculoDTO(marcaVehi, modelo, color, chasis, seguro, tecnomecanica, fechaRegis, imagen);
         return VehiculoDAO.agregarVehiculo(v);
     }
 

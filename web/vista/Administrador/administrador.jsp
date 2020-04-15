@@ -41,12 +41,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar"  aria-controls="navbar"></
-                        <span class="sr-only">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                    
                     <a class="navbar-brand" href="#">Control de Transporte Minero</a>
 
                 </div>
@@ -82,7 +77,7 @@
                         <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4] %></span>
                         <div class="iconOpcAdmin">
                             <a> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
-                            <a> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
+                            <a href="#" data-toggle="modal" data-target="#myModalCerrar"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
                         
                     </div>

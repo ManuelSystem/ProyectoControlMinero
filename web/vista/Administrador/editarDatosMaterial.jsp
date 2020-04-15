@@ -47,12 +47,6 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar"  aria-controls="navbar"></
-                        <span class="sr-only">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                    </button>
                     <a class="navbar-brand" href="#">Control de Transporte Minero</a>
 
                 </div>
@@ -115,7 +109,7 @@
                         <li class="active">Editar Material Minero</li>
                     </ol>
 
-                    <h1 class="page-header">Actualización de Matrial Minero</h1>
+                    <h1 class="page-header">Actualización de Material Minero</h1>
                     
                     <h4 class="">Datos del Material Minero: </h4>
 
