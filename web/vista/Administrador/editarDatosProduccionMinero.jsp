@@ -1,6 +1,6 @@
 <%-- 
-    Document   : editarDatosPatio
-    Created on : 12/04/2020, 12:03:26 AM
+    Document   : editarDatosProduccionMinero
+    Created on : 6/05/2020, 10:12:38 AM
     Author     : Manuel
 --%>
 
@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Editar Material Minero - Control Minero</title>
+        <title>Editar Minero - Control Minero</title>
 
         <link href="../../lib/fontawesome/css/all.css" rel="stylesheet" type="text/css"/>
         <link href="../../lib/fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css"/>
@@ -26,19 +26,19 @@
         <%
             Facade faca = new Facade();
             String cedula = (String) session.getAttribute("parametroCodigo");
-            String idPatio = request.getParameter("idPatio");
+            String idProduccion = request.getParameter("idProduccion");
 
             ArrayList<String> datoSesion = faca.obtenerDatosPersona(cedula);
             String dato = datoSesion.toString().replace("[", "").replace("]", "");
             String[] sesion = dato.split("/");
 
-            ArrayList<String> datosPatio = faca.obtenerDatosPatio(idPatio);
-            String dtPat = datosPatio.toString().replace("[", "").replace("]", "");
-            String[] patio = dtPat.split("/");
-
+            ArrayList<String> datosProduccion = faca.obtenerDatosProduccion(idProduccion);
+            String dtPro = datosProduccion.toString().replace("[", "").replace("]", "");
+            String[] prod = dtPro.split("/");
         %>
 
-        <%            if (request.getParameter("mens") != null) { %>
+        <%
+            if (request.getParameter("mens") != null) { %>
         <input type="text" name="obtInfo" id="obtInfo" value="<%out.println(request.getParameter("mens")); %>" style="visibility: hidden"> <%
             }
         %>
@@ -70,6 +70,7 @@
                             </ul>
                         </li>
                     </ul>
+
                 </div>
             </div>
         </nav>
@@ -97,11 +98,11 @@
                         <li><a href="vehiculo.jsp"> <i class="fas fa-truck-moving"></i> Vehículos</a></li>
                         <li><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
                         <li><a href="fallaMecanica.jsp"> <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Fallas Mecánicas</a></li>
-                        <li class="active"><a href="patio.jsp"> <i class="fas fa-route"></i> Patios de Descargue</a></li>
+                        <li><a href="patio.jsp"> <i class="fas fa-route"></i> Patios de Descargue</a></li>
                         <li><a href="materialMinero.jsp"> <i class="fas fa-mountain"></i> Material Minero</a></li>
                         <li><a href="cargamento.jsp"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
                         <li><a href="minero.jsp"> <i class="fas fa-user-cog"></i> Minero</a></li>
-                        <li><a href="produccionMinero.jsp"> <i class="fas fa-chart-line"></i> Producción de Mineros</a></li>
+                        <li class="active"><a href="produccionMinero.jsp"> <i class="fas fa-chart-line"></i> Producción de Mineros</a></li>
                         <li><a href="usuario.jsp"> <i class="fas fa-users"></i> Usuarios</a></li>
                     </ul>
 
@@ -109,47 +110,44 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
                     <ol class="breadcrumb">
-                        <li><a href="administrador.jsp">Inicio</a></li>
-                        <li >Listado de Patios de Descargue</li>
-                        <li class="active">Editar Patio de Descargue</li>
+                        <li><a href="minero.jsp">Inicio</a></li>
+                        <li >Listado Producción de mineros</li>
+                        <li class="active">Editar Producción de Minero</li>
                     </ol>
 
-                    <h1 class="page-header">Actualización de Patio de Descargue</h1>
-                    
-                    <h4 class="">Datos del Patio: </h4>
+                    <h1 class="page-header">Actualización de la Producción</h1>
+
+                    <h4 class="">Datos de la  producción del minero seleccionado:</h4>
 
                     <div class="row contenedorForms">
+                        <form action="../../ServletRegistroProduccionMinero" method="post">
 
-                        <form action="../../ServletRegistroPatioDescargue" method="post">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="">Departamento de ubicación del Patio</label>
-                                    <input type="text" class="form-control" name="departamento"  value="<%=patio[1]%>" required="" readonly="">
+                                    <label for="">Nombre del Minero</label>
+                                    <input type="text" class="form-control" name="nombresMine" placeholder="Tu Nombre" value="<%=prod[1]%>" required="" readonly="">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="">Municipio de ubicación del Patio</label>
-                                    <input type="text" class="form-control" name="municipio"  value="<%=patio[2]%>" required="" readonly="">
-                                </div>
-                            </div>
-                                <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="">Nombre del Patio</label>
-                                    <input type="text" class="form-control" name="nombrePatio"  value="<%=patio[3]%>" required="" >
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="">Distancia apróximada de recorrido al Patio</label>
-                                    <input type="number" class="form-control" name="distancia"  value="<%=patio[4]%>" required="" >
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="">Descripción del Patio</label>
-                                    <textarea type="text" class="form-control" rows="4" name="descripcionPatio"  placeholder="Escriba una breve descripción del Patio..." required="" style="resize: none;"><%=patio[5]%></textarea>
+                                    <label for="">Horario de Turno</label>
+                                    <input type="text" class="form-control" name="turno" placeholder="Tu Apellido" value="<%=prod[2]%>" required="" readonly=""
                                 </div>
                             </div>
 
-                            <input type="text" class="form-control" name="idPatioInput" value="<%=idPatio%>" style="visibility:hidden ">
-                            <button type="submit" class="btn btn-primary" name="accion" value="actualizarPatio">Actualizar Patio</button>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="">Cantidad de producción(Toneladas)</label>
+                                    <input type="number" class="form-control" name="cantProduccion" value="<%=prod[3]%>" 
+                                           minlength="1" maxlength="2" required="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Fecha de la Producción</label>
+                                    <input type="date" class="form-control" placeholder="fecha" name="fecha" value="<%=prod[4]%>"required="">
+                                </div>
+
+                            </div>
+
+                            <input type="text" class="form-control" name="idProduccionInput" value="<%=idProduccion%>" style="visibility:hidden ">
+                            <button type="submit" class="btn btn-primary" name="accion" value="actualizarProduccion">Actualizar Producción de Minero</button>
                         </form>
 
                     </div>
@@ -158,13 +156,12 @@
             </div>
         </div>
 
-        <!-- modal Registro actualziado exitoso -->
-        <%@ include file="../HTML/modal_ActualizacionExitosa.jsp" %> 
         <!-- modal cerrar sesion -->
         <%@ include file="../HTML/modal_CerrarSesion.jsp" %> 
         <!-- modal error registro-->
         <%@ include file="../HTML/modal_ErrorRegistro.jsp" %> 
-
+        <!-- modal Registro exitoso -->
+        <%@ include file="../HTML/modal_RegistroExitoso.jsp" %> 
 
 
         <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
@@ -173,3 +170,4 @@
         <script src="../../js/script_Admin.js" type="text/javascript"></script>
     </body>
 </html>
+

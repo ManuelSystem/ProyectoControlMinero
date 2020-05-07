@@ -12,13 +12,14 @@ $(document).ready(function () {
     var tipo4 = "'EliminadoExtitosamente'";
     var tipo5 = "'YaExiste'";
     var tipo6 = "'errorSistema'";
-    var tipo7 = "'actualizacionExitosa'";
+    var tipo7 = "'ActualizacionExitosa'";
+    var tipo8 = "'MineroExistente'";
 
     if (valor == tipo2) {
         $("#RegistroExitoso").modal("show");
         setTimeout("$('#RegistroExitoso').modal('hide');", 3000);
     }
-     if (valor == tipo3) {
+    if (valor == tipo3) {
         $("#ErrorRegistro").modal("show");
         setTimeout("$('#ErrorRegistro').modal('hide');", 3000);
     }
@@ -35,10 +36,13 @@ $(document).ready(function () {
         setTimeout("$('#YaExiste').modal('hide');", 3000);
     }
     if (valor == tipo7) {
-        $("#actualizacionExitosa").modal("show");
-        setTimeout("$('#actualizacionExitosa').modal('hide');", 3000);
+        $("#ActualizacionExitosa").modal("show");
+        setTimeout("$('#ActualizacionExitosa').modal('hide');", 3000);
     }
-
+    if (valor == tipo8) {
+        $("#MineroExistente").modal("show");
+        setTimeout("$('#MineroExistente').modal('hide');", 3000);
+    }
 
 
 });

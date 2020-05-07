@@ -85,7 +85,6 @@
                         <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
                         <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4] %></span>
                         <div class="iconOpcAdmin">
-                            <a> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
                             <a href="#" data-toggle="modal" data-target="#myModalCerrar"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
 
@@ -102,7 +101,7 @@
                         <li><a href="cargamento.jsp"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
                         <li><a href="minero.jsp"> <i class="fas fa-user-cog"></i> Minero</a></li>
                         <li><a href="produccionMinero.jsp"> <i class="fas fa-chart-line"></i> Producción de Mineros</a></li>
-                        <li class="active"><a href="usuario.jsp"> <i class="fas fa-users"></i> Usuarios</a></li>
+                        <li class="active"><a href="#"> <i class="fas fa-users"></i> Usuarios</a></li>
                     </ul>
 
                 </div>
@@ -193,7 +192,7 @@
                         <form action="../../ServletRegistroAuxi" class="form-horizontal" method="post">
                             <div id="Docente-Administrativo" class="marcoSeleccionado">
                                 <br>
-                                <h5> * Rellene Los Campos para el Formulario: <span id="objRecivido"></span> </h5>
+                                <h5> * Complete los campos para el Formulario: <span id="objRecivido"></span> </h5>
 
                                 <div class="row">
 

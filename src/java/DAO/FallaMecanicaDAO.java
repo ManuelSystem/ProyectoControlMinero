@@ -91,4 +91,18 @@ public class FallaMecanicaDAO {
         return Database.ejecutarActualizacionSQL(sql);
     }
 
+    public static ArrayList<String> obtenerValoresFalla() {
+     ArrayList<String> datoss = new ArrayList<String>();
+        
+        try {
+            String sql = "SELECT COUNT(*) FROM fallamecanica";
+            datoss = Database.getSQL(sql);
+            System.out.println(sql);
+        } catch (Exception e) {
+            System.err.println("SQL Error dao: " + e.getMessage());
+        }
+        
+        return datoss;   
+    }
+
 }

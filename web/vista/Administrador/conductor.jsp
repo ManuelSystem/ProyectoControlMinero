@@ -83,7 +83,6 @@
                         <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
                         <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4]%></span>
                         <div class="iconOpcAdmin">
-                            <a> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
                             <a href="#" data-toggle="modal" data-target="#myModalCerrar"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
 
@@ -91,7 +90,7 @@
 
                     <ul class="nav nav-sidebar">
                         <li><a href="administrador.jsp"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a></li>
-                        <li class="active"><a href="conductor.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
+                        <li class="active"><a href="#"> <i class="fas fa-address-card"></i> Conductores </a></li>
                         <li><a href="vehiculo.jsp"> <i class="fas fa-truck-moving"></i> Vehículos</a></li>
                         <li><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
                         <li><a href="fallaMecanica.jsp"> <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Fallas Mecánicas</a></li>
@@ -113,7 +112,7 @@
 
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Tabla Conductor</a></li>
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Administrador</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -148,7 +147,6 @@
                                         for (int i = 0; i < lista.size(); i++) {
                                             String dato1 = lista.get(i).toString();
                                             String[] dato2 = dato1.split("/");
-                                            System.out.print("aqui estoy trayendo los datos: ");
                                     %>
 
                                     <tr>
@@ -163,6 +161,10 @@
                                     <% }%>
                                 </tbody>
                             </table>
+                            <div class="col-xs-6 col-md-4">
+
+                                <p><a class="btn btn-info btn-lg" href="generarEstadistica.jsp" role="button"><i class="fas fa-chart-pie"></i>Ver Estadistica</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -198,7 +200,7 @@
                         <form action="../../ServletRegistroConductor" class="form-horizontal" method="post">
                             <div id="Docente-Administrativo" class="marcoSeleccionado">
                                 <br>
-                                <h5> * Rellene Los Campos para el Formulario: <span id="objRecivido"></span> </h5>
+                                <h5> * Complete los campos para el Formulario: <span id="objRecivido"></span> </h5>
 
                                 <div class="row">
 

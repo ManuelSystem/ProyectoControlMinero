@@ -91,5 +91,19 @@ public class AccidenteDAO {
          System.out.print("no elimina accidente: "+sql);
         return Database.ejecutarActualizacionSQL(sql);
     }
+
+    public static ArrayList<String> obtenerValoresAcci() {
+        ArrayList<String> datos = new ArrayList<String>();
+        
+        try {
+            String sql = "SELECT COUNT(*) FROM accidente";
+            datos = Database.getSQL(sql);
+            System.out.println(sql);
+        } catch (Exception e) {
+            System.err.println("SQL Error dao: " + e.getMessage());
+        }
+        
+        return datos;
+    }
     
 }

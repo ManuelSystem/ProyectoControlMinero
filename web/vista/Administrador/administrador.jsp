@@ -76,14 +76,13 @@
                         <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
                         <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4] %></span>
                         <div class="iconOpcAdmin">
-                            <a> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
                             <a href="#" data-toggle="modal" data-target="#myModalCerrar"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
                         
                     </div>
 
                     <ul class="nav nav-sidebar">
-                         <li class="active"><a href="administrador.jsp"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a></li>
+                         <li class="active"><a href="#"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a></li>
                         <li><a href="conductor.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
                         <li><a href="vehiculo.jsp"> <i class="fas fa-truck-moving"></i> Vehículos</a></li>
                         <li><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
@@ -155,7 +154,7 @@
                                             <br>
                                             <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
                                             <br>
-                                            <a href="aggCita.jsp?tipoCita=Medicina General" title="Descargar" class="btn btn-danger" >Descargar</a>
+                                            <a href="generarEstadistica.jsp" title="Descargar" class="btn btn-danger" >Visualizar</a>
                                         </div>
                                     </div>
                                 </div>

@@ -7,21 +7,26 @@ package FACADE;
 
 import DAO.AccidenteDAO;
 import DAO.AuxiliarDAO;
+import DAO.CargamentoDAO;
 import DAO.ConductorDAO;
 import DAO.FallaMecanicaDAO;
 import DAO.MaterialMineroDAO;
+import DAO.MineroDAO;
 import DAO.PatioDAO;
 import DAO.PersonaDAO;
+import DAO.ProduccionMineroDAO;
 import DTO.AuxiliarDTO;
 import DTO.PersonaDTO;
 import DTO.VehiculoDTO;
 import DAO.VehiculoDAO;
 import DTO.AccidenteDTO;
+import DTO.CargamentoDTO;
 import DTO.ConductorDTO;
 import DTO.FallaMecanicaDTO;
 import DTO.MaterialMineroDTO;
+import DTO.MineroDTO;
 import DTO.PatioDTO;
-import java.io.InputStream;
+import DTO.ProduccionMineroDTO;
 import java.util.ArrayList;
 
 /**
@@ -31,8 +36,13 @@ import java.util.ArrayList;
 public class Facade {
 
     public ArrayList<String> iniciarSesion(String usuario, String clave) {
-        PersonaDTO persona = new PersonaDTO(usuario, clave);
-        return PersonaDAO.iniciarSesion(persona);
+        ArrayList<String> datos = new ArrayList<>();
+        try {
+            PersonaDTO persona = new PersonaDTO(usuario, clave);
+            datos = PersonaDAO.iniciarSesion(persona);
+        } catch (Exception e) {
+        }
+        return datos;
     }
 
     public boolean agregarPersona(String tipoDocumento, String numCedula, String nombres, String apellidos, String telefono, String email, String direccion, String generoSexo, String edad) {
@@ -278,7 +288,7 @@ public class Facade {
         dato = PatioDAO.obtenerDatosPatio();
         return dato;
     }
-    
+
     public ArrayList<String> obtenerDatosPatio(String idPatio) {
         ArrayList<String> dato;
         dato = PatioDAO.obtenerDatosPatio(idPatio);
@@ -286,11 +296,143 @@ public class Facade {
     }
 
     public boolean actualizarPatio(String idPatio, String departamento, String municipio, String nomPatio, String distancia, String descripcion) {
-    PatioDTO pat = new PatioDTO(idPatio, departamento, municipio, nomPatio, distancia, descripcion);
-    return PatioDAO.actualizarPatio(pat);
+        PatioDTO pat = new PatioDTO(idPatio, departamento, municipio, nomPatio, distancia, descripcion);
+        return PatioDAO.actualizarPatio(pat);
     }
 
     public boolean eliminarPatio(String idPatio) {
-    return PatioDAO.eliminarPatio(idPatio);
+        return PatioDAO.eliminarPatio(idPatio);
+    }
+
+    public ArrayList<String> validarSiExisteCargamento(String pesoVacio) {
+        ArrayList<String> dato;
+        dato = CargamentoDAO.validarSiExisteCargamento(pesoVacio);
+        return dato;
+    }
+
+    public boolean agregarCargamento(String vehiculo, String conductor, String material, String patio, String pesoVacio, String pesoCargado, String pesoNeto, String fechaCargamento) {
+        CargamentoDTO car = new CargamentoDTO(vehiculo, conductor, material, patio, pesoVacio, pesoCargado, pesoNeto, fechaCargamento);
+        return CargamentoDAO.agregarCargamento(car);
+    }
+
+    public ArrayList<String> obtenerDatosCargamentos() {
+        ArrayList<String> dato;
+        dato = CargamentoDAO.obtenerDatosCargamentos();
+        return dato;
+    }
+
+    public ArrayList<String> obtenerDatosCargamentos(String idCargamento) {
+        ArrayList<String> dato;
+        dato = CargamentoDAO.obtenerDatosCargamentos(idCargamento);
+        return dato;
+    }
+
+    public boolean actualizarCargamento(String idCargamento, String vehiculo, String conductor, String material, String patio, String pesoVacio, String pesoCargado, String pesoNeto, String fechaCargamento) {
+        CargamentoDTO carga = new CargamentoDTO(idCargamento, vehiculo, conductor, material, patio, pesoVacio, pesoCargado, pesoNeto, fechaCargamento);
+        return CargamentoDAO.actualizarCargamento(carga);
+    }
+
+    public boolean eliminarCarga(String idCargamento) {
+        return CargamentoDAO.eliminarCarga(idCargamento);
+    }
+
+    public ArrayList<String> obtenereValores() {
+        ArrayList<String> datos;
+        datos = ConductorDAO.obtenereValores();
+        return datos;
+    }
+
+    public ArrayList<String> obtenerValoresVehi() {
+        ArrayList<String> datos;
+        datos = VehiculoDAO.obtenerValoresVehi();
+        return datos;
+    }
+
+    public ArrayList<String> obtenerValoresAcci() {
+        ArrayList<String> datos;
+        datos = AccidenteDAO.obtenerValoresAcci();
+        return datos;
+    }
+
+    public ArrayList<String> obtenerValoresFalla() {
+        ArrayList<String> datoss;
+        datoss = FallaMecanicaDAO.obtenerValoresFalla();
+        return datoss;
+    }
+
+    public ArrayList<String> obtenerValoresPatio() {
+        ArrayList<String> datoss;
+        datoss = PatioDAO.obtenerValoresPatio();
+        return datoss;
+    }
+
+    public ArrayList<String> obtenerValoresMinero() {
+        ArrayList<String> dates;
+        dates = MineroDAO.obtenerValoresMinero();
+        return dates;
+    }
+
+    public ArrayList<String> validarSiExisteMinero(String numCedula) {
+        ArrayList<String> dato;
+        dato = MineroDAO.validarSiExisteMinero(numCedula);
+        return dato;
+    }
+
+    public boolean agregarMinero(String tipoDocumento, String numCedula, String telefono, String nombres, String apellidos, String direccion, String edad, String fecha) {
+        boolean dato = true;
+        try {
+            MineroDTO m = new MineroDTO(tipoDocumento, numCedula, nombres, apellidos, telefono, direccion, edad, fecha);
+            dato = MineroDAO.agregarMinero(m);
+        } catch (Exception e) {
+        }
+        return dato;
+
+    }
+
+    public ArrayList<String> obtenerDatosMinero() {
+        ArrayList<String> dato;
+        dato = MineroDAO.obtenerDatosMinero();
+        return dato;
+    }
+
+    public ArrayList<String> obtenerDatosMinero(String idMinero) {
+        ArrayList<String> dato;
+        dato = MineroDAO.obtenerDatosMinero(idMinero);
+        return dato;
+    }
+
+    public boolean actualizarMinero(String idMinero, String tipoDocumento, String numCedula, String telefono, String nombres, String apellidos, String direccion, String edad, String fecha) {
+        MineroDTO mi = new MineroDTO(idMinero, tipoDocumento, numCedula, nombres, apellidos, telefono, direccion, edad, fecha);
+        return MineroDAO.actualizarMinero(mi);
+    }
+
+    public boolean eliminarMinero(String idMinero) {
+        return MineroDAO.eliminarMinero(idMinero);
+    }
+
+    public ArrayList<String> validarSiExisteProduccion(String produccion) {
+        ArrayList<String> dato;
+        dato = ProduccionMineroDAO.validarSiExisteProduccion(produccion);
+        return dato;
+    }
+
+    public boolean agregrarProduccion(String nombreMine, String turno, String produccion, String fechaRegistro) {
+        ProduccionMineroDTO pm = new ProduccionMineroDTO(nombreMine, turno, produccion, fechaRegistro);
+        return ProduccionMineroDAO.agregrarProduccion(pm);
+    }
+    public ArrayList<String> obtenerDatosProduccion() {
+        ArrayList<String> dato;
+        dato = ProduccionMineroDAO.obtenerDatosProduccion();
+        return dato;
+    }
+    public ArrayList<String> obtenerDatosProduccion(String idProduccion) {
+        ArrayList<String> datos;
+        datos = ProduccionMineroDAO.obtenerDatosProduccion(idProduccion);
+        return datos;
+    }
+
+    public boolean actualizarProduccion(String idProduccion, String nombreMine, String turno, String produccion, String fechaRegistro) {
+        ProduccionMineroDTO p = new ProduccionMineroDTO(idProduccion, nombreMine, turno, produccion, fechaRegistro);
+        return ProduccionMineroDAO.actualizarProduccion(p);
     }
 }

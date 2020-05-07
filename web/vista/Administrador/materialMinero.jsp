@@ -86,7 +86,6 @@
                         <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
                         <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4]%></span>
                         <div class="iconOpcAdmin">
-                            <a> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
                             <a href="#" data-toggle="modal" data-target="#myModalCerrar"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
 
@@ -99,7 +98,7 @@
                         <li><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
                         <li><a href="fallaMecanica.jsp"> <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Fallas Mecánicas</a></li>
                         <li><a href="patio.jsp"> <i class="fas fa-route"></i> Patios de Descargue</a></li>
-                        <li class="active"><a href="materialMinero.jsp"> <i class="fas fa-mountain"></i> Material Minero</a></li>
+                        <li class="active"><a href="#"> <i class="fas fa-mountain"></i> Material Minero</a></li>
                         <li><a href="cargamento.jsp"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
                         <li><a href="minero.jsp"> <i class="fas fa-user-cog"></i> Minero</a></li>
                         <li><a href="produccionMinero.jsp"> <i class="fas fa-chart-line"></i> Producción de Mineros</a></li>

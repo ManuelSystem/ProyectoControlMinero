@@ -1,6 +1,6 @@
 <%-- 
-    Document   : editarDatosPatio
-    Created on : 12/04/2020, 12:03:26 AM
+    Document   : editarDatosCargamento
+    Created on : 23/04/2020, 07:04:18 PM
     Author     : Manuel
 --%>
 
@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Editar Material Minero - Control Minero</title>
+        <title>Editar Cargamento - Control Minero</title>
 
         <link href="../../lib/fontawesome/css/all.css" rel="stylesheet" type="text/css"/>
         <link href="../../lib/fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css"/>
@@ -23,18 +23,32 @@
         <link href="../../css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <script type="text/javascript">
+            /* Funcion de total cargamento. */
+            function PesoCargamento() {
+                try {
+                    var a = parseFloat(document.cargamento.pvacioo.value),
+                            b = parseFloat(document.cargamento.pcargadoo.value);
+                    document.cargamento.pnetoo.value = b - a;
+                } catch (e) {
+                }
+            }
+
+
+        </script>
         <%
             Facade faca = new Facade();
             String cedula = (String) session.getAttribute("parametroCodigo");
-            String idPatio = request.getParameter("idPatio");
+            String idCargamento = request.getParameter("idCargamento");
 
             ArrayList<String> datoSesion = faca.obtenerDatosPersona(cedula);
             String dato = datoSesion.toString().replace("[", "").replace("]", "");
             String[] sesion = dato.split("/");
 
-            ArrayList<String> datosPatio = faca.obtenerDatosPatio(idPatio);
-            String dtPat = datosPatio.toString().replace("[", "").replace("]", "");
-            String[] patio = dtPat.split("/");
+            ArrayList<String> datosCarga = faca.obtenerDatosCargamentos(idCargamento);
+            String dtAc = datosCarga.toString().replace("[", "").replace("]", "");
+            String[] carga = dtAc.split("/");
+            System.out.println("aqui tengo todos los datos" + datosCarga);
 
         %>
 
@@ -86,23 +100,14 @@
                         <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
                         <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4]%></span>
                         <div class="iconOpcAdmin">
+                            <a> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
                             <a href="#" data-toggle="modal" data-target="#myModalCerrar"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
 
                     </div>
 
                     <ul class="nav nav-sidebar">
-                        <li><a href="administrador.jsp"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a></li>
-                        <li><a href="conductor.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
-                        <li><a href="vehiculo.jsp"> <i class="fas fa-truck-moving"></i> Vehículos</a></li>
-                        <li><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
-                        <li><a href="fallaMecanica.jsp"> <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Fallas Mecánicas</a></li>
-                        <li class="active"><a href="patio.jsp"> <i class="fas fa-route"></i> Patios de Descargue</a></li>
-                        <li><a href="materialMinero.jsp"> <i class="fas fa-mountain"></i> Material Minero</a></li>
-                        <li><a href="cargamento.jsp"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
-                        <li><a href="minero.jsp"> <i class="fas fa-user-cog"></i> Minero</a></li>
-                        <li><a href="produccionMinero.jsp"> <i class="fas fa-chart-line"></i> Producción de Mineros</a></li>
-                        <li><a href="usuario.jsp"> <i class="fas fa-users"></i> Usuarios</a></li>
+                        <li class="active"><a href="cargamento.jsp"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
                     </ul>
 
                 </div>
@@ -110,46 +115,62 @@
 
                     <ol class="breadcrumb">
                         <li><a href="administrador.jsp">Inicio</a></li>
-                        <li >Listado de Patios de Descargue</li>
-                        <li class="active">Editar Patio de Descargue</li>
+                        <li >Listado de Cargamentos</li>
+                        <li class="active">Editar Cargamento</li>
                     </ol>
 
-                    <h1 class="page-header">Actualización de Patio de Descargue</h1>
-                    
-                    <h4 class="">Datos del Patio: </h4>
+                    <h1 class="page-header">Actualización de Cargamento</h1>
 
                     <div class="row contenedorForms">
 
-                        <form action="../../ServletRegistroPatioDescargue" method="post">
+                        <form action="../../ServletRegistroCargamento" method="post" name="cargamento">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="">Departamento de ubicación del Patio</label>
-                                    <input type="text" class="form-control" name="departamento"  value="<%=patio[1]%>" required="" readonly="">
+                                    <label for="">Placa del vehículo</label>
+                                    <input type="text" class="form-control" name="vehiculo"  value="<%=carga[1]%>" required="" readonly="">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="">Municipio de ubicación del Patio</label>
-                                    <input type="text" class="form-control" name="municipio"  value="<%=patio[2]%>" required="" readonly="">
-                                </div>
-                            </div>
-                                <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="">Nombre del Patio</label>
-                                    <input type="text" class="form-control" name="nombrePatio"  value="<%=patio[3]%>" required="" >
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="">Distancia apróximada de recorrido al Patio</label>
-                                    <input type="number" class="form-control" name="distancia"  value="<%=patio[4]%>" required="" >
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="">Descripción del Patio</label>
-                                    <textarea type="text" class="form-control" rows="4" name="descripcionPatio"  placeholder="Escriba una breve descripción del Patio..." required="" style="resize: none;"><%=patio[5]%></textarea>
+                                    <label for="">Nombre del Conductor</label>
+                                    <input type="text" class="form-control" name="conductor"  value="<%=carga[2]%>" required="" readonly="">
                                 </div>
                             </div>
 
-                            <input type="text" class="form-control" name="idPatioInput" value="<%=idPatio%>" style="visibility:hidden ">
-                            <button type="submit" class="btn btn-primary" name="accion" value="actualizarPatio">Actualizar Patio</button>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="">Nombre del Material Minero</label>
+                                    <input type="text" class="form-control" name="material"  value="<%=carga[3]%>" required="" readonly="">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Nombre del patio de Descargue</label>
+                                    <input type="text" class="form-control" name="patio"  value="<%=carga[4]%>" required="" readonly="">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Fecha de Cargamento</label>
+                                    <input type="date" class="form-control" name="fechaCarga"  value="<%=carga[8]%>" required="" >
+                                </div>
+
+                            </div>
+                                <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="">Peso del vehículo vacío</label>
+                                    <input type="number" class="form-control" name="pvacioo"  value="<%=carga[5]%>" required="" 
+                                          step="any" onchange="PesoCargamento();" onkeyup="PesoCargamento();">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">peso del vehículo con carga</label>
+                                    <input type="number" class="form-control" name="pcargadoo"  value="<%=carga[6]%>" required="" 
+                                           step="any" onchange="PesoCargamento();" onkeyup="PesoCargamento();">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Peso Neto del cargamento</label>
+                                    <input type="number" class="form-control" name="pnetoo"  value="<%=carga[7]%>" required="" 
+                                         step="any"  readonly="">
+                                </div>
+
+                            </div>
+
+                            <input type="text" class="form-control" name="idCargamentoInput" value="<%=idCargamento%>" style="visibility:hidden ">
+                            <button type="submit" class="btn btn-primary" name="accion" value="actualizarCarga">Actualizar Cargamento</button>
                         </form>
 
                     </div>
@@ -164,9 +185,6 @@
         <%@ include file="../HTML/modal_CerrarSesion.jsp" %> 
         <!-- modal error registro-->
         <%@ include file="../HTML/modal_ErrorRegistro.jsp" %> 
-
-
-
         <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
         <script src="../../lib/jquery/jquery-3.3.1.js" type="text/javascript"></script>
         <script src="../../lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>

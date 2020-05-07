@@ -94,4 +94,17 @@ public class PatioDAO {
         return Database.ejecutarActualizacionSQL(sql);
     }
 
+    public static ArrayList<String> obtenerValoresPatio() {
+    ArrayList<String> datos = new ArrayList<String>();
+        
+        try {
+            String sql = "SELECT COUNT(*) FROM patiodescargue";
+            datos = Database.getSQL(sql);
+        } catch (Exception e) {
+            System.err.println("SQL Error dao: " + e.getMessage());
+        }
+        
+        return datos;    
+    }
+
 }

@@ -59,7 +59,7 @@
                                 <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> Opciones <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="perfilAdministrador.jsp">Perfil</a></li>
+                                <li><a href="#">Perfil</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#" data-toggle="modal" data-target="#myModalCerrar">Cerrar Sesión</a></li>
                             </ul>
@@ -81,23 +81,22 @@
                         <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
                         <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4]%></span>
                         <div class="iconOpcAdmin">
-                            <a> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
-                            <a> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
+                            <a href="#" data-toggle="modal" data-target="#myModalCerrar"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
                     </div>
 
                     <ul class="nav nav-sidebar">
                         <li class="active"><a href="administrador.jsp"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <i class="fas fa-truck-moving"></i> Vehículos</a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Fallas Mecánicas</a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <i class="fas fa-route"></i> Patios de Descargue</a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <i class="fas fa-mountain"></i> Material Minero</a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <i class="fas fa-user-cog"></i> Minero</a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <i class="fas fa-chart-line"></i> Producción de Mineros</a></li>
-                        <li><a href="listadoCoordinadores.jsp"> <i class="fas fa-users"></i> Usuarios</a></li>
+                        <li><a href="conductor.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
+                        <li><a href="vehiculo.jsp"> <i class="fas fa-truck-moving"></i> Vehículos</a></li>
+                        <li><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
+                        <li><a href="fallaMecanica.jsp"> <span class="glyphicon glyphicon-scale" aria-hidden="true"></span> Fallas Mecánicas</a></li>
+                        <li><a href="patio.jsp"> <i class="fas fa-route"></i> Patios de Descargue</a></li>
+                        <li><a href="materialMinero.jsp"> <i class="fas fa-mountain"></i> Material Minero</a></li>
+                        <li><a href="cargamento.jsp"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
+                        <li ><a href="minero.jsp"> <i class="fas fa-user-cog"></i> Minero</a></li>
+                        <li><a href="produccionMinero.jsp"> <i class="fas fa-chart-line"></i> Producción de Mineros</a></li>
+                        <li><a href="usuario.jsp"> <i class="fas fa-users"></i> Usuarios</a></li>
                     </ul>
 
 

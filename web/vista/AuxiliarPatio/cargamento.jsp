@@ -1,12 +1,12 @@
 <%-- 
     Document   : cargamento
-    Created on : 11/03/2020, 05:13:14 PM
+    Created on : 23/04/2020, 06:57:14 PM
     Author     : Manuel
 --%>
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="FACADE.Facade"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Usuario - Control Minero</title>
+        <title>Cargamento - Control Minero</title>
 
         <link href="../../lib/fontawesome/css/all.css" rel="stylesheet" type="text/css"/>
         <link href="../../lib/fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css"/>
@@ -23,22 +23,40 @@
         <link href="../../lib/bootstrap/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="../../css/dashboard.css" rel="stylesheet" type="text/css"/>
         <link href="../../css/DataTabla.css" rel="stylesheet" type="text/css"/>
+
+
     </head>
     <body>
+        <script type="text/javascript">
+            /* Funcion de total cargamento. */
+            function RestarAutomatico() {
+                try {
+                    var a = parseFloat(document.cargamento.pvacio.value),
+                            b = parseFloat(document.cargamento.pcargado.value);
+                    document.cargamento.pneto.value = b - a;
+                } catch (e) {
+                }
+            }
+
+
+        </script>
         <%
             Facade faca = new Facade();
             if (request.getParameter("mens") != null) { %>
         <input type="text" name="obtInfo" id="obtInfo" value="<%out.println(request.getParameter("mens")); %>" style="visibility: hidden;"> <%
             }
         %>
-          <%
-            
-            String cedula = (String)session.getAttribute("parametroCodigo");
-            
+        <%
+            String cedula = (String) session.getAttribute("parametroCodigo");
+
             ArrayList<String> datoSesion = faca.obtenerDatosPersona(cedula);
             String dato = datoSesion.toString().replace("[", "").replace("]", "");
             String[] sesion = dato.split("/");
-           
+
+            ArrayList<String> lista2 = faca.obtenerDatosConductor();
+            ArrayList<String> listas = faca.obtenerDatosMaterial();
+            ArrayList<String> listaPatios = faca.obtenerDatosPatio();
+            String[] dato22;
         %>
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -61,13 +79,10 @@
                                 <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> Opciones <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="perfilAdministrador.jsp">Perfil</a></li>
-                                <li class="divider"></li>
                                 <li><a href="#" data-toggle="modal" data-target="#myModalCerrar">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </nav>
@@ -81,55 +96,56 @@
                             <img src="../../img/logo2.png" width="130" height="130" class="img-responsive" alt="Img1">
 
                         </div>
-                         <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
-                        <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4] %></span>
+                        <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
+                        <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4]%></span>
                         <div class="iconOpcAdmin">
-                            <a> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
-                            <a href="#" data-toggle="modal" data-target="#myModalCerrar"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
+                            <a href="#" data-toggle="modal" data-target="#myModalCerrar"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
 
                     </div>
 
                     <ul class="nav nav-sidebar">
-                        <li><a href="cargamento.jsp"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
+                        <li class="active"><a href="#"> <i class="fas fa-truck-loading"></i> Cargamentos</a></li>
                     </ul>
-
-
 
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Módulo de Cargamentos</h1>
 
-
-
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Tabla Cargamentos</a></li>
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Auxiliar de Patio</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
                             <br>
-                            
-                            <h4>Listado de Cargamentos</h4>
                             <br>
-
-
-
+                            <div class="row">
+                                <div class="col-xs-6 col-md-4">
+                                    <button type="submit" class="btn btn-warning btn-lg" href="#" data-toggle="modal" data-target="#myModal">Agregar Cargamento</button>
+                                </div>
+                            </div>
+                            <h4>Listado de Cargamentos </h4>
+                            <br>
                             <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Numero Documento</th>
-                                        <th>Nombre</th>
-                                        <th>Email</th>
-                                        <th>Descripción Operación</th>
+                                        <th>Vehículo</th>
+                                        <th>Conductor</th>
+                                        <th>Patio</th>
+                                        <th>Peso del vehículo Vacio</th>
+                                        <th>Peso del vehículo Cargado</th>
+                                        <th>Cargamento Neto</th>
+                                        <th>Fecha de Cargamento</th>
                                         <th>Editar</th>
                                         <th>Borrar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     <%
-                                        ArrayList<String> lista = faca.obtenerDatosAuxiliar();
+                                        ArrayList<String> lista = faca.obtenerDatosCargamentos();
 
                                         for (int i = 0; i < lista.size(); i++) {
                                             String dato1 = lista.get(i).toString();
@@ -137,12 +153,15 @@
                                     %>
 
                                     <tr>
+                                        <td> <%=dato2[1]%> </td>
                                         <td> <%=dato2[2]%> </td>
-                                        <td> <%=dato2[3]%> </td>
-                                        <td> <%=dato2[6]%> </td>
-                                        <td> <%=dato2[14]%> </td>
-                                        <td><input type="button" class="btn btn-success" name="btnModificar" value="Editar" onclick="location.href = 'editarDatosAuxiliar.jsp?idPersona=<%=dato2[0]%>&&idAuxiliar=<%=dato2[13]%>'"> </td>
-                                        <td><input type="button" class="btn btn-danger" name="btnEliminar" value="Eliminar" onclick="location.href = '../../ServletRegistroAuxi?idPersona=<%=dato2[0]%>&&idAuxiliar=<%=dato2[13]%>&&accion=eliminar'"> </td>
+                                        <td> <%=dato2[4]%> </td>
+                                        <td> <%=dato2[5]%> Toneladas</td>
+                                        <td> <%=dato2[6]%> Toneladas</td>
+                                        <td style="background-color: #82E0AA;"> <%=dato2[7]%> Toneladas</td>
+                                        <td> <%=dato2[8]%> </td>
+                                        <td><input type="button" class="btn btn-success" name="btnModificar" value="Editar" onclick="location.href = 'editarDatosCargamento.jsp?idCargamento=<%=dato2[0]%>'"> </td>
+                                        <td><input type="button" class="btn btn-danger" name="btnEliminar" value="Eliminar" onclick="location.href = '../../ServletRegistroCargamento?idCargamento=<%=dato2[0]%>&&accion=eliminar'"> </td>
                                     </tr>
 
                                     <% }%>
@@ -151,15 +170,20 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
     </div>
-
+    <!-- modal Eliminado exitoso -->
+    <%@ include file="../HTML/modal_EliminadoExitosamente.jsp" %>
     <!-- modal cerrar sesion -->
-    <%@ include file="../HTML/modal_CerrarSesion.jsp" %> 
-    <%@ include file="../HTML/modal_RegistroExitoso.jsp" %> 
+    <%@ include file="../HTML/modal_CerrarSesion.jsp" %>
+    <!-- modal Registro Exitoso -->
+    <%@ include file="../HTML/modal_RegistroExitoso.jsp" %>
+
+    <!-- modal Error Registro-->
+    <%@ include file="../HTML/modal_ErrorRegistro.jsp" %>
+
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -175,85 +199,118 @@
 
 
                         <!-- cuadro de registro del Usuario-->
-                        <form action="../../ServletRegistroAuxi" class="form-horizontal" method="post">
-                            <div id="Docente-Administrativo" class="marcoSeleccionado">
+                        <form action="../../ServletRegistroCargamento" class="form-horizontal" name="cargamento" method="post">
+                            <div >
                                 <br>
                                 <h5> * Rellene Los Campos para el Formulario: <span id="objRecivido"></span> </h5>
 
                                 <div class="row">
-
-                                    <input type="text" name="tipoUsuario2" id="objRecivido2" value="" style="visibility: hidden;">
                                     <div class="form-group">
-                                        <label  class="col-sm-4 control-label">Tipo Documento:</label>
-                                        <div class="col-lg-8">
-                                            <select class="form-control"  name="TipoDocumentoUsu" required="">
-                                                <option value="">Seleccione</option>
-                                                <option >Cedula de Ciudadania</option>
-                                                <option >Documento de Ciudadano Extranjero</option>
-                                                <option >Permiso Especial de Permanencia</option>
-                                            </select>
-                                        </div>
 
-                                    </div>
+                                        <label class="col-sm-5 control-label">Seleccione Vehículo</label>
 
-                                    <div class="form-group">
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" placeholder="Numero de Documento" name="numeroCedulaUsu" required="">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" placeholder="Telefono" name="telefonoUsu" required="">
+                                        <div class="col-lg-7">
+                                            <select class="form-control"  name="vehiculo" required="">
+                                                <option value="">seleccione placa del vehículo</option>
+                                                <%
+                                                    ArrayList<String> listaa = faca.obtenerDatosVehiculo();
+                                                    for (int i = 0; i < listaa.size(); i++) {
+                                                        String dato1 = listaa.get(i).toString();
+                                                        String[] datoo = dato1.split("/");
+                                                %>
+                                                <option><%=datoo[4]%></option>
+                                                <% }%>
+                                            </select>  
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" name="NombresUsu" placeholder="Nombres" required="">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" name="ApellidosUsu" placeholder="Apellidos" required="">
+
+                                        <label class="col-sm-5 control-label">Seleccione el conductor </label>
+
+                                        <div class="col-lg-7">
+                                            <select class="form-control"  name="nombreConductor" required="">
+                                                <option value="">seleccione conductor</option>
+                                                <%
+                                                    for (int i = 0; i < lista2.size(); i++) {
+                                                        String dato1 = lista2.get(i).toString();
+                                                        dato22 = dato1.split("/");
+                                                %>
+                                                <option><%=dato22[3]%>  <%=dato22[4]%></option>
+                                                <% }%>
+                                            </select>  
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <div class="col-lg-12">
-                                            <input type="email" class="form-control" placeholder="Correo Electronico" name="emailUsu" required="">
+
+                                        <label class="col-sm-5 control-label">Seleccione el nombre del Material Minero </label>
+
+                                        <div class="col-lg-7">
+                                            <select class="form-control"  name="material"  required="">
+                                                <option value="">seleccione material minero</option>
+                                                <%
+                                                    for (int i = 0; i < listas.size(); i++) {
+                                                        String dato11 = listas.get(i).toString();
+                                                        dato22 = dato11.split("/");
+
+                                                %>
+                                                <option><%=dato22[2]%></option>
+                                                <% }%>
+                                            </select>  
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <div class="col-lg-12">
-                                            <input type="text" class="form-control" placeholder="Direccón" name="direccionUsu" required="">
+
+                                        <label class="col-sm-5 control-label">Seleccione el nombre del Patio </label>
+
+                                        <div class="col-lg-7">
+                                            <select class="form-control"  name="patio"  required="">
+                                                <option value="">seleccione Patio</option>
+                                                <%
+                                                    for (int i = 0; i < listaPatios.size(); i++) {
+                                                        String datoP = listaPatios.get(i).toString();
+                                                        dato22 = datoP.split("/");
+
+                                                %>
+                                                <option><%=dato22[2]%></option>
+                                                <% }%>
+                                            </select>  
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <div class="col-lg-6">
-                                            <select class="form-control"  name="TipoSexoUsu" required="">
-                                                <option value="">Tipo Genero</option>
-                                                <option >Femenino</option>
-                                                <option >Masculino</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <input type="number" class="form-control" placeholder="Edad" name="edadUsu" min="1" max="120" required="">
+                                        <label  class="col-sm-5 control-label">Peso del Vehículo vacío</label>
+                                        <div class="col-lg-7">
+                                            <input type="number" class="form-control cargamento" placeholder="Digite el respectivo peso." name="pvacio" 
+                                                   value="0" step="any"  aria-describedby="basic-addon2" required="" onchange="RestarAutomatico();" onkeyup="RestarAutomatico();"/>
+                                            <span class="input-group-addon" id="basic-addon2">Tonelada</span>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <div class="col-lg-12">
-                                            <input type="text" class="form-control" placeholder="Digite breve Descripcion de su operación" name="DescripcionOperaUsu" required="">
+                                        <label  class="col-sm-5 control-label">Peso del Vehículo Cargado</label>
+                                        <div class="col-lg-7">
+                                            <input type="number" class="form-control cargamento" placeholder="Digite el respectivo peso." name="pcargado" 
+                                                     value="0"  step="any"  aria-describedby="basic-addon2" required="" onchange="RestarAutomatico();" onkeyup="RestarAutomatico();"/>
+                                            <span class="input-group-addon" id="basic-addon2">Tonelada</span>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <label  class="col-sm-4 control-label">Fecha de registro:</label>
-                                        <div class="col-lg-8">
+                                        <label  class="col-sm-5 control-label">Peso neto del Cargamento es:</label>
+                                        <div class="col-lg-7">
+                                            <input type="number" class="form-control cargamento" placeholder="Peso total." name="pneto" 
+                                                   value="0" step="any" readonly=""  aria-describedby="basic-addon2" required=""  />
+                                            <span class="input-group-addon" id="basic-addon2">Tonelada</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-5 control-label">Fecha del Cargamento</label>
+                                        <div class="col-lg-7">
                                             <input type="date" class="form-control"  name="fechaRegistro" required="">   
                                         </div>
-
                                     </div>
-                                    <button type="submit" class="btn btn-primary" name="accion" value="agregarUsu">Registrar</button>
-                                </div>
 
+                                    <button type="submit" class="btn btn-primary" name="accion" value="agregarCarga">Registrar</button>
+                                    <br>
+                                </div>
+                                <br>
                             </div>
                         </form>  
                         <div class="modal-footer">
@@ -263,7 +320,6 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-
             <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
             <script src="../../lib/jquery/jquery-3.3.1.js" type="text/javascript"></script>
             <script src="../../lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -272,6 +328,3 @@
             <script src="../../js/script_Admin.js" type="text/javascript"></script>
             </body>
             </html>
-
-
-

@@ -46,10 +46,6 @@ public class PersonaDTO {
         this.password = password;
     }
 
-    
-
-   
-
     public PersonaDTO(String tipoDocumento, String cedulaPersona, String nombrePersona, String apellidoPersona, String telefonoPersona, String correoPersona, String direccionPersona, String sexoPersona, String edad) {
         this.tipoDocumento = tipoDocumento;
         this.cedulaPersona = cedulaPersona;

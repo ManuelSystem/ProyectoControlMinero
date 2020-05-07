@@ -38,6 +38,7 @@ public class PersonaDAO {
                     + "'"+a.getDireccionPersona()+"', '"+a.getSexoPersona()+"', "
                     + "'"+a.getEdad()+"', '"+a.getCedulaPersona()+"', '"+a.getCedulaPersona()+"', 2)";
         } catch (Exception e) {
+             System.out.println("Falló el agregar usuario"+e);
         }
         return Database.ejecutarActualizacionSQL(sql);
     }

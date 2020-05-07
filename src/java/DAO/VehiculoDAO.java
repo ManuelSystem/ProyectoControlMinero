@@ -93,5 +93,19 @@ public class VehiculoDAO {
         return Database.ejecutarActualizacionSQL(sql);
     }
 
+    public static ArrayList<String> obtenerValoresVehi() {
+        ArrayList<String> datos = new ArrayList<String>();
+        
+        try {
+            String sql = "SELECT COUNT(*) FROM vehiculo";
+            datos = Database.getSQL(sql);
+            System.out.println(sql);
+        } catch (Exception e) {
+            System.err.println("SQL Error dao: " + e.getMessage());
+        }
+        
+        return datos;
+    }
+
     
 }
