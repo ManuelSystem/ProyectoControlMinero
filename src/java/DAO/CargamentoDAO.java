@@ -86,4 +86,15 @@ public class CargamentoDAO {
         }
         return Database.ejecutarActualizacionSQL(sql);    
     }
+
+    public static ArrayList<String> obtenereTotalCargamento() {
+    ArrayList<String> datos = new ArrayList<>();
+        try {
+            String sql = "SELECT SUM(pesoNeto) FROM cargamento";
+            datos = Database.getSQL(sql);
+        } catch (Exception e) {
+            System.err.println("SQL Error total cargamentos: " + e.getMessage());
+        }
+        return datos;
+    }
 }

@@ -126,10 +126,6 @@
                                     <label for="">N° de documento del Conductor</label>
                                     <input type="text" class="form-control" name="numeroCedulaCon"  value="<%=acci[2]%>" required="" readonly="">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="">Nombre del Conductor</label>
-                                    <input type="text" class="form-control" name="NombresCon"  value="<%=acci[3]%>" required="" readonly="">
-                                </div>
                             </div>
 
                             <div class="form-row">
@@ -139,14 +135,14 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="">Fecha Actualización</label>
-                                    <input type="date" class="form-control" name="fechaRegistro"  value="<%=acci[4]%>" required="">
+                                    <input type="date" class="form-control" name="fechaRegistro"  value="<%=acci[3]%>" required="">
                                 </div>
 
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="">Descripción del Accidente</label>
-                                    <textarea type="text" class="form-control" rows="4" name="descripcionAcci"  placeholder="Escriba una breve descripción del Accidente..." required="" style="resize: none;"><%=acci[5]%></textarea>
+                                    <textarea type="text" class="form-control" rows="4" name="descripcionAcci"  placeholder="Escriba una breve descripción del Accidente..." required="" style="resize: none;"><%=acci[4]%></textarea>
                                 </div>
                             </div>
 

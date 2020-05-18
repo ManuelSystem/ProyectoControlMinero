@@ -8,6 +8,7 @@ package Controlador;
 import FACADE.Facade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,9 +48,8 @@ public class ServletRegistroAccidente extends HttpServlet {
             if (accion.equals("actualizarAcci")) {
                 ActualizarAccidente(request, response);
             }
-            if (accion.equals("eliminar")) {
-                EliminarAccidente(request, response);
-            }
+        }catch(Exception e){
+            out.println(e);
         }
     }
 
@@ -101,14 +101,13 @@ public class ServletRegistroAccidente extends HttpServlet {
 
         String chasisVehicu = request.getParameter("chasisVehiculo");
         String cedulaCondu = request.getParameter("Cedulaconductor");
-        String nombreCondu = request.getParameter("Nomconductor");
         String fechaaccidente = request.getParameter("fechaRegistro");
         String descripcionAcci = request.getParameter("descripcionAccide");
 
         try {
-            ArrayList<String> dato = validarSiExisteUnAccidente(chasisVehicu);
+            ArrayList<String> dato = validarSiExisteUnAccidente(fechaaccidente);
             if (dato.isEmpty()) {
-                boolean retorno = agregarAccidente(chasisVehicu, cedulaCondu, nombreCondu, fechaaccidente, descripcionAcci);
+                boolean retorno = agregarAccidente(chasisVehicu, cedulaCondu, fechaaccidente, descripcionAcci);
                 if (retorno == true) {
                     response.sendRedirect("vista/Administrador/accidente.jsp?mens='RegistroExitoso'");
                 } else {
@@ -132,14 +131,13 @@ public class ServletRegistroAccidente extends HttpServlet {
 
         String chasisVehicu = request.getParameter("chasis");
         String cedulaCondu = request.getParameter("numeroCedulaCon");
-        String nombreCondu = request.getParameter("NombresCon");
         String fechaaccidente = request.getParameter("fechaRegistro");
         String descripcionAcci = request.getParameter("descripcionAcci");
 
         String idAccidente = request.getParameter("idAccidenteInput");
 
         try {
-            boolean retornoAci = atualizarAccidente(idAccidente, chasisVehicu, cedulaCondu, nombreCondu, fechaaccidente, descripcionAcci);
+            boolean retornoAci = atualizarAccidente(idAccidente, chasisVehicu, cedulaCondu, fechaaccidente, descripcionAcci);
             if (retornoAci == true) {
                 response.sendRedirect("vista/Administrador/accidente.jsp?mens='RegistroExitoso'");
             } else {
@@ -151,42 +149,20 @@ public class ServletRegistroAccidente extends HttpServlet {
 
     }
 
-    private void EliminarAccidente(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        PrintWriter out = response.getWriter();
-        String idAccidente = request.getParameter("idAccidente");
-
-        try {
-            boolean elimina = eliminarAccidente(idAccidente);
-            if (elimina == true) {
-                response.sendRedirect("vista/Administrador/accidente.jsp?mens='EliminadoExtitosamente'");
-            } else {
-                response.sendRedirect("vista/Administrador/accidente.jsp?mens='ErrorRegistro'");
-            }
-        } catch (Exception e) {
-            out.println(e);
-        }
-
-    }
-
-    private ArrayList<String> validarSiExisteUnAccidente(String chasisVehicu) {
+    private ArrayList<String> validarSiExisteUnAccidente(String fechaaccidente) {
         ArrayList<String> dato;
-        dato = faca.validarSiExisteUnAccidente(chasisVehicu);
+        dato = faca.validarSiExisteUnAccidente(fechaaccidente);
         return dato;
     }
 
-    private boolean agregarAccidente(String chasisVehicu, String cedulaCondu, String nombreCondu, String fechaaccidente, String descripcionAcci) {
-        return faca.agregarAccidente(chasisVehicu, cedulaCondu, nombreCondu, fechaaccidente, descripcionAcci);
+    private boolean agregarAccidente(String chasisVehicu, String cedulaCondu, String fechaaccidente, String descripcionAcci) {
+        return faca.agregarAccidente(chasisVehicu, cedulaCondu, fechaaccidente, descripcionAcci);
     }
 
-    private boolean atualizarAccidente(String idAccidente, String chasisVehicu, String cedulaCondu, String nombreCondu, String fechaaccidente, String descripcionAcci) {
-        return faca.atualizarAccidente(idAccidente, chasisVehicu, cedulaCondu, nombreCondu, fechaaccidente, descripcionAcci);
+    private boolean atualizarAccidente(String idAccidente, String chasisVehicu, String cedulaCondu, String fechaaccidente, String descripcionAcci) {
+        return faca.atualizarAccidente(idAccidente, chasisVehicu, cedulaCondu, fechaaccidente, descripcionAcci);
     }
 
-    private boolean eliminarAccidente(String idAccidente) {
-        return faca.eliminarAccidente(idAccidente);
-    }
+    
 
 }

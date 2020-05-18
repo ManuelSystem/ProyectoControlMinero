@@ -125,7 +125,7 @@
                             <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Número Chasis</th>
+                                        <th>Número Placa</th>
                                         <th>Marca</th>
                                         <th>Color</th>
                                         <th>Seguro</th>

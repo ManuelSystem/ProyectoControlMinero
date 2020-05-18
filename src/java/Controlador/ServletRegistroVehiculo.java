@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -47,6 +48,8 @@ public class ServletRegistroVehiculo extends HttpServlet {
             if (accion.equals("eliminar")) {
                 EliminarVehiculo(request, response);
             }
+        }catch(Exception e){
+            out.println(e);
         }
     }
 

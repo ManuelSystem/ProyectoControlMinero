@@ -76,4 +76,14 @@ public class ProduccionMineroDAO {
         return Database.ejecutarActualizacionSQL(sql);
     }
 
+    public static ArrayList<String> obtenereTotalProduccionMinero() {
+         ArrayList<String> datos = new ArrayList<>();
+        try {
+            String sql = "SELECT SUM(cantidadProduDiaria) FROM produccionminero";
+            datos = Database.getSQL(sql);
+        } catch (Exception e) {
+            System.err.println("SQL Error total produccion Minero: " + e.getMessage());
+        }
+        return datos;
+    }
 }

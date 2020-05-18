@@ -133,12 +133,11 @@
                             <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Chasis Vehículo</th>
+                                        <th>Placa de Vehículo</th>
                                         <th>Nombre conductor</th>
                                         <th>Fecha de Falla Mecánica</th>
                                         <th>Descripción</th>
                                         <th>Editar</th>
-                                        <th>Borrar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -157,7 +156,6 @@
                                         <td> <%=dato2[3]%> </td>
                                         <td> <%=dato2[4]%> </td>
                                         <td><input type="button" class="btn btn-success" name="btnModificar" value="Editar" onclick="location.href = 'editarDatosFallaMeca.jsp?idFallaMecanica=<%=dato2[0]%>'"> </td>
-                                        <td><input type="button" class="btn btn-danger" name="btnEliminar" value="Eliminar" onclick="location.href = '../../ServletRegistroFallaMecanica?idFallaMecanica=<%=dato2[0]%>&&accion=eliminar'"> </td>
                                     </tr>
 
                                     <% }%>
@@ -173,15 +171,15 @@
         </div>
 
     </div>
-    <!-- modal Eliminado exitoso -->
-    <%@ include file="../HTML/modal_EliminadoExitosamente.jsp" %>
+
     <!-- modal cerrar sesion -->
     <%@ include file="../HTML/modal_CerrarSesion.jsp" %>
     <!-- modal Registro Exitoso -->
     <%@ include file="../HTML/modal_RegistroExitoso.jsp" %>
-
     <!-- modal Error Registro-->
     <%@ include file="../HTML/modal_ErrorRegistro.jsp" %>
+    <!-- modal Eliminado exitoso -->
+    <%@ include file="../HTML/modal_EliminadoExitosamente.jsp" %>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -210,7 +208,7 @@
 
                                         <div class="col-lg-7">
                                             <select class="form-control"  name="vehiculoFalla" required="">
-                                                <option value="">seleccione n° chasis del vehículo</option>
+                                                <option value="">seleccione n° placa del vehículo</option>
                                                 <%
                                                     ArrayList<String> listaa = faca.obtenerDatosVehiculo();
                                                     for (int i = 0; i < listaa.size(); i++) {

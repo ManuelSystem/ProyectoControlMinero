@@ -22,15 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ServletRegistroPatioDescargue", urlPatterns = {"/ServletRegistroPatioDescargue"})
 public class ServletRegistroPatioDescargue extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     Facade faca = new Facade();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

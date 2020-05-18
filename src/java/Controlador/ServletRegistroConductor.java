@@ -8,6 +8,7 @@ package Controlador;
 import FACADE.Facade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,6 +41,8 @@ public class ServletRegistroConductor extends HttpServlet {
             if (accion.equals("eliminar")) {
                 EliminarConductor(request, response);
             }
+        }catch(Exception e){
+            out.println(e);
         }
     }
 

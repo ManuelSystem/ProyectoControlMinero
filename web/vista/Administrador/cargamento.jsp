@@ -33,7 +33,7 @@
 
     </head>
     <body>
-        
+
         <%
             Facade faca = new Facade();
             if (request.getParameter("mens") != null) { %>
@@ -110,7 +110,7 @@
                         <li><a href="minero.jsp"> <i class="fas fa-user-cog"></i> Minero</a></li>
                         <li><a href="produccionMinero"> <i class="fas fa-chart-line"></i> Producción de Mineros</a></li>
                         <li><a href="usuario.jsp"> <i class="fas fa-users"></i> Usuarios</a></li>
-                        
+
                     </ul>
 
                 </div>
@@ -163,6 +163,10 @@
                                     <% }%>
                                 </tbody>
                             </table>
+                            <div class="col-xs-6 col-md-4">
+
+                                <p><a class="btn btn-info btn-lg" href="administrador.jsp" role="button"><i class="fas fa-chart-pie"></i>Ver Estadistica</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>

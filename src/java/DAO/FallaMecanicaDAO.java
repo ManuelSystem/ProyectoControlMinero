@@ -15,11 +15,11 @@ import util.Database;
  */
 public class FallaMecanicaDAO {
 
-    public static ArrayList<String> validarSiExisteFalla(String chasisVehi) {
+    public static ArrayList<String> validarSiExisteFalla(String fechaRegistro) {
         ArrayList<String> dato = new ArrayList<>();
         try {
 
-            String sql = "SELECT idFalla FROM fallamecanica WHERE chasisVehiculo='" + chasisVehi + "'";
+            String sql = "SELECT idFalla FROM fallamecanica WHERE fechaRegistro='" + fechaRegistro + "'";
             dato = Database.getSQL(sql);
 
         } catch (Exception e) {
@@ -77,16 +77,6 @@ public class FallaMecanicaDAO {
                     + "fechaRegistro='"+f.getFechaRgistro()+"', descripcion='"+f.getDescripcionFalla()+"' WHERE idFalla="+f.getIdFalla()+"";
         } catch (Exception e) {
             System.err.println("SQL Error: " + e.getMessage());
-        }
-        return Database.ejecutarActualizacionSQL(sql);
-    }
-
-    public static boolean eliminarFalla(String idFalla) {
-    String sql = "";
-        try {
-            sql = "DELETE FROM fallamecanica WHERE idFalla="+idFalla+"";
-        } catch (Exception e) {
-             System.err.println("SQL Error: " + e.getMessage());
         }
         return Database.ejecutarActualizacionSQL(sql);
     }

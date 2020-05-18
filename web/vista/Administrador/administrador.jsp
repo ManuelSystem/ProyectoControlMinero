@@ -18,30 +18,36 @@
         <link href="../../lib/fontawesome/css/fontawesome.css" rel="stylesheet" type="text/css"/>
         <link href="../../lib/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="../../css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <link href="../../css/reportes.css" rel="stylesheet">
+        <link href="../../morris/morris.css" rel="stylesheet" type="text/css"/>
 
     </head>
     <body>
-<%
+        <%
             Facade faca = new Facade();
             if (request.getParameter("mens") != null) { %>
         <input type="text" name="obtInfo" id="obtInfo" value="<%out.println(request.getParameter("mens")); %>" style="visibility: hidden;"> <%
             }
         %>
-          <%
-            String cedula = (String)session.getAttribute("parametroCodigo");
-            
+        <%
+            String cedula = (String) session.getAttribute("parametroCodigo");
+
             ArrayList<String> datoSesion = faca.obtenerDatosPersona(cedula);
             String dato = datoSesion.toString().replace("[", "").replace("]", "");
             String[] sesion = dato.split("/");
-           
+
+            ArrayList<String> totalCargamento = faca.obtenereTotalCargamento();
+            String totalCargaTransporte = totalCargamento.toString().replace("[", "").replace("]", "").replace("/", "");
+
+            ArrayList<String> totalProduccion = faca.obtenereTotalProduccionMinero();
+            String totalproducido = totalProduccion.toString().replace("[", "").replace("]", "").replace("/", "");
+
         %>
 
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    
+
                     <a class="navbar-brand" href="#">Control de Transporte Minero</a>
 
                 </div>
@@ -71,18 +77,17 @@
                     <div class="opcAdmin">
                         <div>
                             <img src="../../img/logo2.png" width="130" height="130" class="img-responsive" alt="Img1">
-                            
                         </div>
                         <span style="color: #ffb900; font-family: sans-serif; font-size: 16px;" class="col-md-12"> Bienvenido!</span>
-                        <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4] %></span>
+                        <span style="color: #fff;" class="col-md-12 userNombre"><%=sesion[4]%></span>
                         <div class="iconOpcAdmin">
-                            <a href="#" data-toggle="modal" data-target="#myModalCerrar"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
+                            <a href="#" data-toggle="modal" data-target="#myModalCerrar"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> 
                         </div>
-                        
+
                     </div>
 
                     <ul class="nav nav-sidebar">
-                         <li class="active"><a href="#"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a></li>
+                        <li class="active"><a href="#"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a></li>
                         <li><a href="conductor.jsp"> <i class="fas fa-address-card"></i> Conductores </a></li>
                         <li><a href="vehiculo.jsp"> <i class="fas fa-truck-moving"></i> Vehículos</a></li>
                         <li><a href="accidente.jsp"> <i class="fas fa-car-crash"></i> Accidentes</a></li>
@@ -101,281 +106,46 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Inicio de Administrador</h1>
 
-                    <h4 class="">Reportes</h4>
-                    <div class="row">
-                    <!-- Tgenerar reporte conductores -->
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                            <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p class="iconoP"><i class="fas fa-address-card" aria-hidden="true"></i></p>
-                                            <h4 class="card-title">Reporte Conductores</h4>
-                                            <br>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="backside">
-                                    <div class="card">
-                                        <div class="card-body text-center mt-4">
-                                            <br>
-                                            <h4 class="card-title">Reporte Conductores</h4>
-                                            <br>
-                                            <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
-                                            <br>
-                                            <a href="aggCita.jsp?tipoCita=Medicina General" title="Descargar" class="btn btn-danger" >Descargar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <h4 class="">Reporte</h4>
+                    <div class="row contenedorForms">
+                        <br/>
+                        
+                        <div class="alert alert-info" role="alert">
+                            Bienvenido al sistema Piloto de control minero. A continuación verá la representación gráfica del total del material minero transportado junto con el total de producción de la mina.</div>
+                        <div class="row">
+                        <div id="bar-example"></div>
                         </div>
-                    </div>
-                    <!-- generar reporte vehículos -->
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                            <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p class="iconoP"><i class="fas fa-truck-moving" aria-hidden="true"></i></p>
-                                            <h4 class="card-title">Reporte Vehículos</h4>
-                                            <br>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="backside">
-                                    <div class="card">
-                                        <div class="card-body text-center mt-4">
-                                            <br>
-                                            <h4 class="card-title">Reporte de Vehículos</h4>
-                                            <br>
-                                            <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
-                                            <br>
-                                            <a href="generarEstadistica.jsp" title="Descargar" class="btn btn-danger" >Visualizar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Generar reportes accidentes -->
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                            <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p class="iconoP"><i class="fas fa-car-crash" aria-hidden="true"></i></p>
-                                            <h4 class="card-title">Reporte Accidentes</h4>
-                                            <br>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="backside">
-                                    <div class="card">
-                                        <div class="card-body text-center mt-4">
-                                            <br>
-                                            <h4 class="card-title">Reporte de Accidentes</h4>
-                                            <br>
-                                            <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
-                                            <br>
-                                            <a href="aggCita.jsp?tipoCita=Medicina General" title="Descargar" class="btn btn-danger" >Descargar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-                    <!-- generar reportes fallas mecanicas -->
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                            <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p class="iconoP"><i class="glyphicon glyphicon-scale" aria-hidden="true"></i></p>
-                                            <h4 class="card-title">Reporte de Fallas Mecánicas</h4>
-                                            <br>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="backside">
-                                    <div class="card">
-                                        <div class="card-body text-center mt-4">
-                                            <br>
-                                            <h4 class="card-title">Reporte Fallas Mecánicas</h4>
-                                            <br>
-                                            <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
-                                            <br>
-                                            <a href="aggCita.jsp?tipoCita=Medicina General" title="Descargar" class="btn btn-danger" >Descargar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- generar reportes patios de descargue -->
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                            <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p class="iconoP"><i class="fas fa-route" aria-hidden="true"></i></p>
-                                            <h4 class="card-title">Reporte Patios de Descargue</h4>
-                                            <br>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="backside">
-                                    <div class="card">
-                                        <div class="card-body text-center mt-4">
-                                            <br>
-                                            <h4 class="card-title">Reporte de Patios de Descargue</h4>
-                                            <br>
-                                            <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
-                                            <br>
-                                            <a href="aggCita.jsp?tipoCita=Medicina General" title="Descargar" class="btn btn-danger" >Descargar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- generar reportes material minero -->
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                            <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p class="iconoP"><i class="fas fa-mountain" aria-hidden="true"></i></p>
-                                            <h4 class="card-title">Reporte Material Minero</h4>
-                                            <br>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="backside">
-                                    <div class="card">
-                                        <div class="card-body text-center mt-4">
-                                            <br>
-                                            <h4 class="card-title">Reporte de Material Minero</h4>
-                                            <br>
-                                            <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
-                                            <br>
-                                            <a href="aggCita.jsp?tipoCita=Medicina General" title="Descargar" class="btn btn-danger" >Descargar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- generar reportes cargamentos -->
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                            <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p class="iconoP"><i class="fas fa-truck-loading" aria-hidden="true"></i></p>
-                                            <h4 class="card-title">Reporte Cargamentos</h4>
-                                            <br>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="backside">
-                                    <div class="card">
-                                        <div class="card-body text-center mt-4">
-                                            <br>
-                                            <h4 class="card-title">Reporte de Cargamentos</h4>
-                                            <br>
-                                            <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
-                                            <br>
-                                            <a href="aggCita.jsp?tipoCita=Medicina General" title="Descargar" class="btn btn-danger" >Descargar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- generar reportes mineros -->
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                            <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p class="iconoP"><i class="fas fa-hard-hat" aria-hidden="true"></i></p>
-                                            <h4 class="card-title">Reporte Mineros</h4>
-                                            <br>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="backside">
-                                    <div class="card">
-                                        <div class="card-body text-center mt-4">
-                                            <br>
-                                            <h4 class="card-title">Reporte de Mineros</h4>
-                                            <br>
-                                            <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
-                                            <br>
-                                            <a href="aggCita.jsp?tipoCita=Medicina General" title="Descargar" class="btn btn-danger" >Descargar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <!-- generar reportes produccion por mineros -->
-                    <div class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                            <div class="mainflip">
-                                <div class="frontside">
-                                    <div class="card">
-                                        <div class="card-body text-center">
-                                            <p class="iconoP"><i class="fas fa-chart-line" aria-hidden="true"></i></p>
-                                            <h4 class="card-title">Reporte Producción por Mineros</h4>
-                                            <br>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="backside">
-                                    <div class="card">
-                                        <div class="card-body text-center mt-4">
-                                            <br>
-                                            <h4 class="card-title">Reporte de Producción por Mineros</h4>
-                                            <br>
-                                            <p class="card-text">Descarga para saber cuántos conductores hay registrados junto con sus datos</p>
-                                            <br>
-                                            <a href="aggCita.jsp?tipoCita=Medicina General" title="Descargar" class="btn btn-danger" >Descargar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    
-                </div>
+                        <br/>
+                        <form name="estadistica" >
+                            <div class="form-group">
 
-                   
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" id="producidoTotal" name="producidoTotal" value="<%=totalproducido%>"
+                                           style="visibility: hidden " onchange="restar(this.value);">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" id="cargaTotal" name="cargaTotal" value="<%=totalCargaTransporte%>"
+                                           style="visibility: hidden " onchange="restar(this.value);">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
             </div>
 
         </div>
+        <!-- modal cerrar sesion -->
+        <%@ include file="../HTML/modal_CerrarSesion.jsp" %> 
 
-        <script src="../../lib/jquery/jquery.min.js" type="text/javascript"></script>
         <script src="../../lib/fontawesome/js/all.js" type="text/javascript"></script>
+        <script src="../../lib/jquery/jquery-3.3.1.js" type="text/javascript"></script>
         <script src="../../lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="../../js/script_Admin.js" type="text/javascript"></script>
+        <script src="../../morris/morris.min.js" type="text/javascript"></script>
+        <script src="../../js/estadisticaTotal.js" type="text/javascript"></script>
 
     </body>
 </html>

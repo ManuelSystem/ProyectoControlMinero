@@ -13,27 +13,24 @@ public class AccidenteDTO {
     private String idAccidente;
     private String chasisVehiculo;
     private String cedulaConductor;
-    private String nombreConductor;
     private String fechaAccidente;
     private String descripcionAccidente;
 
-    public AccidenteDTO(String idAccidente, String chasisVehiculo, String cedulaConductor, String nombreConductor, String fechaAccidente, String descripcionAccidente) {
+    public AccidenteDTO(String idAccidente, String chasisVehiculo, String cedulaConductor, String fechaAccidente, String descripcionAccidente) {
         this.idAccidente = idAccidente;
         this.chasisVehiculo = chasisVehiculo;
         this.cedulaConductor = cedulaConductor;
-        this.nombreConductor = nombreConductor;
         this.fechaAccidente = fechaAccidente;
         this.descripcionAccidente = descripcionAccidente;
     }
 
-    public AccidenteDTO(String chasisVehiculo, String cedulaConductor, String nombreConductor, String fechaAccidente, String descripcionAccidente) {
+    public AccidenteDTO(String chasisVehiculo, String cedulaConductor, String fechaAccidente, String descripcionAccidente) {
         this.chasisVehiculo = chasisVehiculo;
         this.cedulaConductor = cedulaConductor;
-        this.nombreConductor = nombreConductor;
         this.fechaAccidente = fechaAccidente;
         this.descripcionAccidente = descripcionAccidente;
     }
-    
+
     public String getIdAccidente() {
         return idAccidente;
     }
@@ -58,14 +55,6 @@ public class AccidenteDTO {
         this.cedulaConductor = cedulaConductor;
     }
 
-    public String getNombreConductor() {
-        return nombreConductor;
-    }
-
-    public void setNombreConductor(String nombreConductor) {
-        this.nombreConductor = nombreConductor;
-    }
-
     public String getFechaAccidente() {
         return fechaAccidente;
     }
@@ -81,6 +70,8 @@ public class AccidenteDTO {
     public void setDescripcionAccidente(String descripcionAccidente) {
         this.descripcionAccidente = descripcionAccidente;
     }
+
+   
     
     
 }

@@ -176,9 +176,9 @@ public class Facade {
         return ConductorDAO.eliminarConductor(idConductor);
     }
 
-    public ArrayList<String> validarSiExisteFalla(String chasisVehi) {
+    public ArrayList<String> validarSiExisteFalla(String fechaRegistro) {
         ArrayList<String> dato;
-        dato = FallaMecanicaDAO.validarSiExisteFalla(chasisVehi);
+        dato = FallaMecanicaDAO.validarSiExisteFalla(fechaRegistro);
         return dato;
     }
 
@@ -204,18 +204,14 @@ public class Facade {
         return FallaMecanicaDAO.actualizarFalla(f);
     }
 
-    public boolean eliminarFalla(String idFalla) {
-        return FallaMecanicaDAO.eliminarFalla(idFalla);
-    }
-
-    public ArrayList<String> validarSiExisteUnAccidente(String chasisVehicu) {
+    public ArrayList<String> validarSiExisteUnAccidente(String fechaaccidente) {
         ArrayList<String> dato;
-        dato = AccidenteDAO.validarSiExisteUnAccidente(chasisVehicu);
+        dato = AccidenteDAO.validarSiExisteUnAccidente(fechaaccidente);
         return dato;
     }
 
-    public boolean agregarAccidente(String chasisVehicu, String cedulaCondu, String nombreCondu, String fechaaccidente, String descripcionAcci) {
-        AccidenteDTO acc = new AccidenteDTO(chasisVehicu, cedulaCondu, nombreCondu, fechaaccidente, descripcionAcci);
+    public boolean agregarAccidente(String chasisVehicu, String cedulaCondu, String fechaaccidente, String descripcionAcci) {
+        AccidenteDTO acc = new AccidenteDTO(chasisVehicu, cedulaCondu, fechaaccidente, descripcionAcci);
         return AccidenteDAO.agregarAccidente(acc);
     }
 
@@ -231,14 +227,11 @@ public class Facade {
         return datos;
     }
 
-    public boolean atualizarAccidente(String idAccidente, String chasisVehicu, String cedulaCondu, String nombreCondu, String fechaaccidente, String descripcionAcci) {
-        AccidenteDTO aci = new AccidenteDTO(idAccidente, chasisVehicu, cedulaCondu, nombreCondu, fechaaccidente, descripcionAcci);
+    public boolean atualizarAccidente(String idAccidente, String chasisVehicu, String cedulaCondu, String fechaaccidente, String descripcionAcci) {
+        AccidenteDTO aci = new AccidenteDTO(idAccidente, chasisVehicu, cedulaCondu, fechaaccidente, descripcionAcci);
         return AccidenteDAO.atualizarAccidente(aci);
     }
 
-    public boolean eliminarAccidente(String idAccidente) {
-        return AccidenteDAO.eliminarAccidente(idAccidente);
-    }
 
     public ArrayList<String> validarSiExisteMaterial(String nombreMaterial) {
         ArrayList<String> dato;
@@ -434,5 +427,15 @@ public class Facade {
     public boolean actualizarProduccion(String idProduccion, String nombreMine, String turno, String produccion, String fechaRegistro) {
         ProduccionMineroDTO p = new ProduccionMineroDTO(idProduccion, nombreMine, turno, produccion, fechaRegistro);
         return ProduccionMineroDAO.actualizarProduccion(p);
+    }
+    public ArrayList<String> obtenereTotalCargamento() {
+        ArrayList<String> dates;
+        dates = CargamentoDAO.obtenereTotalCargamento();
+        return dates;
+    }
+    public ArrayList<String> obtenereTotalProduccionMinero() {
+        ArrayList<String> dates;
+        dates = ProduccionMineroDAO.obtenereTotalProduccionMinero();
+        return dates;
     }
 }

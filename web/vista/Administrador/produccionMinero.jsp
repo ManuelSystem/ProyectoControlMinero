@@ -150,7 +150,7 @@
                                     <tr>
                                         <td> <%=dato2[1]%> </td>
                                         <td> <%=dato2[2]%> </td>
-                                        <td> <%=dato2[3]%> Toneladas</td>
+                                        <td style="background-color: #82E0AA;"> <%=dato2[3]%> Toneladas</td>
                                         <td> <%=dato2[4]%> </td>
                                         <td><input type="button" class="btn btn-success" name="btnModificar" value="Editar" onclick="location.href = 'editarDatosProduccionMinero.jsp?idProduccion=<%=dato2[0]%>'"> </td>
                                     </tr>
@@ -160,7 +160,7 @@
                             </table>
                             <div class="col-xs-6 col-md-4">
 
-                                <p><a class="btn btn-info btn-lg" href="generarEstadistica.jsp" role="button"><i class="fas fa-chart-pie"></i>Ver Estadistica</a></p>
+                                <p><a class="btn btn-info btn-lg" href="administrador.jsp" role="button"><i class="fas fa-chart-pie"></i>Ver Estadistica</a></p>
                             </div>
                         </div>
                     </div>

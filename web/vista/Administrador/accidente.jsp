@@ -128,13 +128,11 @@
                             <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Chasis Vehículo</th>
+                                        <th>Placa Vehículo</th>
                                         <th>Documento conductor</th>
-                                        <th>Nombre conductor</th>
                                         <th>Fecha Accidente</th>
                                         <th>Descripción</th>
                                         <th>Editar</th>
-                                        <th>Borrar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -152,9 +150,7 @@
                                         <td> <%=dato2[2]%> </td>
                                         <td> <%=dato2[3]%> </td>
                                         <td> <%=dato2[4]%> </td>
-                                        <td> <%=dato2[5]%> </td>
                                         <td><input type="button" class="btn btn-success" name="btnModificar" value="Editar" onclick="location.href = 'editarDatosAccidente.jsp?idAccidente=<%=dato2[0]%>'"> </td>
-                                        <td><input type="button" class="btn btn-danger" name="btnEliminar" value="Eliminar" onclick="location.href = '../../ServletRegistroAccidente?idAccidente=<%=dato2[0]%>&&accion=eliminar'"> </td>
                                     </tr>
 
                                     <% }%>
@@ -198,10 +194,6 @@
                         <form action="../../ServletRegistroAccidente" class="form-horizontal" method="post">
                             <div id="Docente-Administrativo" class="marcoSeleccionado">
                                 <br>
-                                <div class="alert alert-warning alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <strong>Advertencia!</strong> Por favor, al momento de <strong>seleccionar la cédula</strong> del conductor tenga en cuenta el índice de registro, para que al <strong>seleccionar el nombre</strong> del conductor coíncidan con el mismo registro. .
-                                </div>
                                 <h5> * Complete los campos para el Formulario: <span id="objRecivido"></span> </h5>
 
                                 <div class="row">
@@ -211,7 +203,7 @@
 
                                         <div class="col-lg-7">
                                             <select class="form-control"  name="chasisVehiculo" required="">
-                                                <option value="">seleccione n° chasis del vehículo</option>
+                                                <option value="">seleccione n° placa del vehículo</option>
                                                 <%
                                                     ArrayList<String> listaa = faca.obtenerDatosVehiculo();
                                                     for (int i = 0; i < listaa.size(); i++) {
@@ -235,26 +227,7 @@
                                                         String dato1 = lista2.get(i).toString();
                                                         dato22 = dato1.split("/");
                                                 %>
-                                                <option><%=dato22[2]%> - <%=dato22[0]%></option>
-                                                <% }%>
-                                            </select>  
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <label class="col-sm-5 control-label">Seleccione el nombre del conductor </label>
-
-                                        <div class="col-lg-7">
-                                            <select class="form-control"  name="Nomconductor"  required="">
-                                                <option value="">seleccione conductor</option>
-                                                <%
-
-                                                    for (int i = 0; i < lista2.size(); i++) {
-                                                        String dato1 = lista2.get(i).toString();
-                                                        dato22 = dato1.split("/");
-
-                                                %>
-                                                <option><%=dato22[3]%> - <%=dato22[0]%></option>
+                                                <option><%=dato22[2]%></option>
                                                 <% }%>
                                             </select>  
                                         </div>
